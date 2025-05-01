@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTf-8">
+        <title>Simulador de XSS</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body class="bg-black text-green-400 min-h-screen flex flex-col items-center justify-center p-6 font-mono">
+        <h1 class="text-3xl font-bold text-green-500 mb-6">Simulador educativo de XSS</h1>
+        <form id="xss-form" class="bg-gray-900 shadow-lg rounded-lg p-2 w-full max-w-lg border border-green-400">
+            <label for="payload" name="payload" class="block text-green-400 font-medium mb-2">Inserte tu payload XSS</label><br>
+            <textarea id="payload" name="payload" rows="4" cols="50" placeholder="Ej: <script>alert('XSS')</script>" class="w-full p-3 bg-black text-green-400 border border-green-600 rounded mb-4 resize-none placeholder-green-600"></textarea><br>
+            <button type="submit" class="bg-green-700 hover:bg-green-600 text-black font-bold px-4 py-2 rounded transition-colors w-full">Ejecutar y guardar</button>
+        </form>
+        <h2 class="text-xl font-semibold text-green-400 mt-10 mb-2">Resultado Simulado:</h2>
+        <div class="w-full max-w-lg p-4 border border-green-600 rounded shadow-md text-white min-h-[100px]"><div id="xss-result" class="Simuladed-box"></div></div>
+        <script src="scritp.js"></script>
+    </body>
+</html>

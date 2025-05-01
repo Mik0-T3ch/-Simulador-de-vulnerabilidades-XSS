@@ -1,0 +1,19 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 30px;
+    background-color: #f7f7f7;
+  }
+  
+  textarea {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .simulated-box {
+    margin-top: 20px;
+    padding: 10px;
+    border: 2px dashed red;
+    background-color: #fff0f0;
+    min-height: 50px;
+  }
+  
