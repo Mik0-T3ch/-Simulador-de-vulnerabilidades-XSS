@@ -1,0 +1,21 @@
+---
+interface Props {
+  variant?: 'critical' | 'high' | 'medium' | 'low' | 'info' | 'safe';
+  text: string;
+}
+
+const { variant = 'info', text } = Astro.props;
+
+const styles = {
+  critical: 'bg-red-950/70 text-red-400 border-red-500/40 shadow-red-950/50',
+  high: 'bg-orange-950/70 text-orange-400 border-orange-500/40 shadow-orange-950/50',
+  medium: 'bg-amber-950/70 text-amber-300 border-amber-500/40 shadow-amber-950/50',
+  low: 'bg-blue-950/70 text-blue-400 border-blue-500/40 shadow-blue-950/50',
+  info: 'bg-cyan-950/70 text-cyan-300 border-cyan-500/40 shadow-cyan-950/50',
+  safe: 'bg-emerald-950/70 text-emerald-300 border-emerald-500/40 shadow-emerald-950/50'
+};
+---
+
+<span class={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-mono font-semibold border ${styles[variant]} shadow-sm backdrop-blur-sm`}>
+  {text}
+</span>

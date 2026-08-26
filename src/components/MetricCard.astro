@@ -1,0 +1,48 @@
+---
+interface Props {
+  title: string;
+  value: string | number;
+  change?: string;
+  icon?: string;
+  variant?: 'emerald' | 'blue' | 'purple' | 'red' | 'amber';
+}
+
+const { title, value, change, icon, variant = 'emerald' } = Astro.props;
+
+const borderVariants = {
+  emerald: 'border-cyber-accent/30 hover:border-cyber-accent/70 shadow-neon-green/10',
+  blue: 'border-cyber-glow/30 hover:border-cyber-glow/70 shadow-neon-blue/10',
+  purple: 'border-cyber-purple/30 hover:border-cyber-purple/70',
+  red: 'border-cyber-danger/30 hover:border-cyber-danger/70 shadow-neon-danger/10',
+  amber: 'border-cyber-warning/30 hover:border-cyber-warning/70'
+};
+
+const textVariants = {
+  emerald: 'text-cyber-accent',
+  blue: 'text-cyber-glow',
+  purple: 'text-purple-400',
+  red: 'text-cyber-danger',
+  amber: 'text-cyber-warning'
+};
+---
+
+<div class={`p-5 rounded-xl bg-cyber-card/80 border ${borderVariants[variant]} backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 relative overflow-hidden group`}>
+  <div class="flex items-center justify-between mb-3">
+    <span class="text-xs font-mono uppercase tracking-wider text-slate-400 font-semibold">{title}</span>
+    {icon && (
+      <div class={`p-2 rounded-lg bg-cyber-panel/80 ${textVariants[variant]}`}>
+        <Fragment set:html={icon} />
+      </div>
+    )}
+  </div>
+  <div class="flex items-baseline justify-between">
+    <div class={`text-3xl font-mono font-bold tracking-tight ${textVariants[variant]}`} id={`metric-${title.toLowerCase().replace(/\s+/g, '-')}`}>
+      {value}
+    </div>
+    {change && (
+      <span class="text-xs font-mono text-slate-400 bg-cyber-panel/60 px-2 py-1 rounded">
+        {change}
+      </span>
+    )}
+  </div>
+</div>
