@@ -8,7 +8,7 @@ import Layout from '../../layouts/Layout.astro';
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-cyber-border/80 pb-5">
       <div>
         <h1 class="text-2xl sm:text-3xl font-bold font-mono text-white flex items-center gap-3">
-          <span class="p-2 rounded-lg bg-purple-500/10 border border-purple-500/30 text-purple-400">
+          <span class="p-2 rounded-lg bg-cyber-purple/20 border border-cyber-accent/40 text-cyber-pastelPink shadow-neon-purple/20">
             <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
           </span>
           Ofuscador de Payloads & Bypass de Filtros
@@ -32,15 +32,15 @@ import Layout from '../../layouts/Layout.astro';
             <textarea
               id="encoder-input"
               rows="4"
-              class="w-full p-3 rounded-lg bg-cyber-bg border border-cyber-border font-mono text-xs text-cyber-accent focus:border-cyber-accent focus:outline-none resize-none leading-relaxed"
+              class="w-full p-3 rounded-lg bg-cyber-bg border border-cyber-border font-mono text-xs text-cyber-pastelPink focus:border-cyber-pink focus:outline-none resize-none leading-relaxed"
               placeholder="<script>alert(1)</script>"
             >&lt;script&gt;alert('XSS')&lt;/script&gt;</textarea>
           </div>
 
           <div class="flex flex-wrap gap-1.5">
-            <button class="encoder-preset px-2 py-1 rounded bg-cyber-panel text-slate-300 hover:text-white text-[11px] font-mono border border-cyber-border/60" data-code="<script>alert(1)</script>">Tag Script</button>
-            <button class="encoder-preset px-2 py-1 rounded bg-cyber-panel text-slate-300 hover:text-white text-[11px] font-mono border border-cyber-border/60" data-code="<img src=x onerror=alert('Bypass')>">Img OnError</button>
-            <button class="encoder-preset px-2 py-1 rounded bg-cyber-panel text-slate-300 hover:text-white text-[11px] font-mono border border-cyber-border/60" data-code="javascript:alert(document.cookie)">URI Scheme</button>
+            <button class="encoder-preset px-2 py-1 rounded bg-cyber-panel text-slate-300 hover:text-cyber-pastelPink text-[11px] font-mono border border-cyber-border/60" data-code="<script>alert(1)</script>">Tag Script</button>
+            <button class="encoder-preset px-2 py-1 rounded bg-cyber-panel text-slate-300 hover:text-cyber-pastelPink text-[11px] font-mono border border-cyber-border/60" data-code="<img src=x onerror=alert('Bypass')>">Img OnError</button>
+            <button class="encoder-preset px-2 py-1 rounded bg-cyber-panel text-slate-300 hover:text-cyber-pastelPink text-[11px] font-mono border border-cyber-border/60" data-code="javascript:alert(document.cookie)">URI Scheme</button>
           </div>
         </div>
 
@@ -59,48 +59,48 @@ import Layout from '../../layouts/Layout.astro';
           
           <div class="p-4 rounded-xl bg-cyber-card border border-cyber-border space-y-2">
             <div class="flex items-center justify-between">
-              <span class="text-xs font-mono font-bold text-cyber-accent uppercase">HTML Entities (Decimal)</span>
-              <button class="copy-btn text-[11px] font-mono text-slate-400 hover:text-cyber-accent" data-target="out-html-dec">Copiar</button>
+              <span class="text-xs font-mono font-bold text-cyber-pastelPink uppercase">HTML Entities (Decimal)</span>
+              <button class="copy-btn text-[11px] font-mono text-slate-400 hover:text-cyber-pink" data-target="out-html-dec">Copiar</button>
             </div>
             <div class="p-2.5 rounded bg-cyber-bg border border-cyber-border/80 font-mono text-xs text-slate-300 break-all" id="out-html-dec"></div>
           </div>
 
           <div class="p-4 rounded-xl bg-cyber-card border border-cyber-border space-y-2">
             <div class="flex items-center justify-between">
-              <span class="text-xs font-mono font-bold text-cyber-glow uppercase">HTML Entities (Hexadecimal)</span>
-              <button class="copy-btn text-[11px] font-mono text-slate-400 hover:text-cyber-glow" data-target="out-html-hex">Copiar</button>
+              <span class="text-xs font-mono font-bold text-cyber-accent uppercase">HTML Entities (Hexadecimal)</span>
+              <button class="copy-btn text-[11px] font-mono text-slate-400 hover:text-cyber-accent" data-target="out-html-hex">Copiar</button>
             </div>
             <div class="p-2.5 rounded bg-cyber-bg border border-cyber-border/80 font-mono text-xs text-slate-300 break-all" id="out-html-hex"></div>
           </div>
 
           <div class="p-4 rounded-xl bg-cyber-card border border-cyber-border space-y-2">
             <div class="flex items-center justify-between">
-              <span class="text-xs font-mono font-bold text-purple-400 uppercase">URL Encoding & Double URL</span>
-              <button class="copy-btn text-[11px] font-mono text-slate-400 hover:text-purple-400" data-target="out-url-double">Copiar</button>
+              <span class="text-xs font-mono font-bold text-cyber-pink uppercase">URL Encoding & Double URL</span>
+              <button class="copy-btn text-[11px] font-mono text-slate-400 hover:text-cyber-pink" data-target="out-url-double">Copiar</button>
             </div>
             <div class="p-2.5 rounded bg-cyber-bg border border-cyber-border/80 font-mono text-xs text-slate-300 break-all" id="out-url-double"></div>
           </div>
 
           <div class="p-4 rounded-xl bg-cyber-card border border-cyber-border space-y-2">
             <div class="flex items-center justify-between">
-              <span class="text-xs font-mono font-bold text-amber-400 uppercase">Unicode Escape Sequence (\u00xx)</span>
-              <button class="copy-btn text-[11px] font-mono text-slate-400 hover:text-amber-400" data-target="out-unicode">Copiar</button>
+              <span class="text-xs font-mono font-bold text-cyber-pastelPink uppercase">Unicode Escape Sequence (\u00xx)</span>
+              <button class="copy-btn text-[11px] font-mono text-slate-400 hover:text-cyber-pastelPink" data-target="out-unicode">Copiar</button>
             </div>
             <div class="p-2.5 rounded bg-cyber-bg border border-cyber-border/80 font-mono text-xs text-slate-300 break-all" id="out-unicode"></div>
           </div>
 
           <div class="p-4 rounded-xl bg-cyber-card border border-cyber-border space-y-2">
             <div class="flex items-center justify-between">
-              <span class="text-xs font-mono font-bold text-red-400 uppercase">JavaScript String.fromCharCode()</span>
-              <button class="copy-btn text-[11px] font-mono text-slate-400 hover:text-red-400" data-target="out-charcode">Copiar</button>
+              <span class="text-xs font-mono font-bold text-cyber-accent uppercase">JavaScript String.fromCharCode()</span>
+              <button class="copy-btn text-[11px] font-mono text-slate-400 hover:text-cyber-accent" data-target="out-charcode">Copiar</button>
             </div>
             <div class="p-2.5 rounded bg-cyber-bg border border-cyber-border/80 font-mono text-xs text-slate-300 break-all" id="out-charcode"></div>
           </div>
 
           <div class="p-4 rounded-xl bg-cyber-card border border-cyber-border space-y-2">
             <div class="flex items-center justify-between">
-              <span class="text-xs font-mono font-bold text-emerald-400 uppercase">Data URI Scheme (Base64)</span>
-              <button class="copy-btn text-[11px] font-mono text-slate-400 hover:text-emerald-400" data-target="out-datauri">Copiar</button>
+              <span class="text-xs font-mono font-bold text-cyber-pink uppercase">Data URI Scheme (Base64)</span>
+              <button class="copy-btn text-[11px] font-mono text-slate-400 hover:text-cyber-pink" data-target="out-datauri">Copiar</button>
             </div>
             <div class="p-2.5 rounded bg-cyber-bg border border-cyber-border/80 font-mono text-xs text-slate-300 break-all" id="out-datauri"></div>
           </div>
@@ -164,7 +164,7 @@ import Layout from '../../layouts/Layout.astro';
             <div class="text-[10px] text-slate-500 truncate max-w-[220px]">Salida: ${res.sanitized || '(Vacio)'}</div>
           </div>
           <span class="px-2 py-0.5 rounded text-[10px] font-bold ${
-            isBypassed ? 'bg-emerald-950 text-emerald-300 border border-emerald-500' : 'bg-red-950 text-red-300 border border-red-500'
+            isBypassed ? 'bg-purple-950 text-cyber-pastelPink border border-cyber-pink' : 'bg-red-950 text-red-300 border border-red-500'
           }">
             ${isBypassed ? 'BYPASS EXITOSO' : 'BLOQUEADO'}
           </span>

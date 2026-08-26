@@ -5,15 +5,19 @@ export default {
     extend: {
       colors: {
         cyber: {
-          bg: '#0a0d14',
-          card: '#111726',
-          panel: '#161f36',
-          border: '#1f2d4d',
-          accent: '#00ff9d',
-          glow: '#00e5ff',
-          danger: '#ff3366',
-          warning: '#ffb703',
-          purple: '#9d4edd'
+          bg: '#08070d',
+          card: '#100c1c',
+          panel: '#171228',
+          border: '#271d42',
+          borderHover: '#4a3375',
+          accent: '#c084fc',
+          purple: '#a855f7',
+          darkPurple: '#581c87',
+          pink: '#f472b6',
+          pastelPink: '#fbcfe8',
+          glow: '#f472b6',
+          danger: '#fb7185',
+          warning: '#fcd34d'
         }
       },
       fontFamily: {
@@ -21,9 +25,9 @@ export default {
         sans: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif']
       },
       boxShadow: {
-        'neon-green': '0 0 15px rgba(0, 255, 157, 0.3)',
-        'neon-blue': '0 0 15px rgba(0, 229, 255, 0.3)',
-        'neon-danger': '0 0 15px rgba(255, 51, 102, 0.3)'
+        'neon-purple': '0 0 20px rgba(192, 132, 252, 0.35)',
+        'neon-pink': '0 0 20px rgba(244, 114, 182, 0.35)',
+        'neon-glow': '0 0 25px rgba(244, 114, 182, 0.25)'
       }
     }
   },

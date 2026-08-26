@@ -8,7 +8,7 @@ import Layout from '../../layouts/Layout.astro';
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-cyber-border/80 pb-5">
       <div>
         <h1 class="text-2xl sm:text-3xl font-bold font-mono text-white flex items-center gap-3">
-          <span class="p-2 rounded-lg bg-cyber-accent/10 border border-cyber-accent/30 text-cyber-accent">
+          <span class="p-2 rounded-lg bg-cyber-purple/20 border border-cyber-accent/40 text-cyber-pastelPink shadow-neon-purple/20">
             <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
           </span>
           Laboratorio de Content Security Policy (CSP)
@@ -34,23 +34,23 @@ import Layout from '../../layouts/Layout.astro';
             <textarea
               id="csp-policy-input"
               rows="4"
-              class="w-full p-3 rounded-lg bg-cyber-bg border border-cyber-border font-mono text-xs text-cyber-glow focus:border-cyber-accent focus:outline-none resize-none leading-relaxed"
+              class="w-full p-3 rounded-lg bg-cyber-bg border border-cyber-border font-mono text-xs text-cyber-pastelPink focus:border-cyber-pink focus:outline-none resize-none leading-relaxed"
             >default-src 'self'; script-src 'nonce-r4nd0mN0nc3' 'strict-dynamic'; object-src 'none'; base-uri 'none';</textarea>
           </div>
 
           <div class="flex flex-wrap gap-2">
             <span class="text-[11px] font-mono text-slate-500 self-center">Plantillas:</span>
-            <button class="csp-preset-btn px-2.5 py-1 rounded bg-cyber-panel text-slate-300 hover:text-white text-[11px] font-mono border border-cyber-border/60" data-preset="insecure">Insegura</button>
-            <button class="csp-preset-btn px-2.5 py-1 rounded bg-cyber-panel text-slate-300 hover:text-white text-[11px] font-mono border border-cyber-border/60" data-preset="basic">Básica</button>
-            <button class="csp-preset-btn px-2.5 py-1 rounded bg-cyber-panel text-slate-300 hover:text-white text-[11px] font-mono border border-cyber-border/60" data-preset="strict_nonce">Estricta (Nonce)</button>
-            <button class="csp-preset-btn px-2.5 py-1 rounded bg-cyber-panel text-slate-300 hover:text-white text-[11px] font-mono border border-cyber-border/60" data-preset="google_recommended">Google Strict</button>
+            <button class="csp-preset-btn px-2.5 py-1 rounded bg-cyber-panel text-slate-300 hover:text-cyber-pastelPink text-[11px] font-mono border border-cyber-border/60" data-preset="insecure">Insegura</button>
+            <button class="csp-preset-btn px-2.5 py-1 rounded bg-cyber-panel text-slate-300 hover:text-cyber-pastelPink text-[11px] font-mono border border-cyber-border/60" data-preset="basic">Básica</button>
+            <button class="csp-preset-btn px-2.5 py-1 rounded bg-cyber-panel text-slate-300 hover:text-cyber-pastelPink text-[11px] font-mono border border-cyber-border/60" data-preset="strict_nonce">Estricta (Nonce)</button>
+            <button class="csp-preset-btn px-2.5 py-1 rounded bg-cyber-panel text-slate-300 hover:text-cyber-pastelPink text-[11px] font-mono border border-cyber-border/60" data-preset="google_recommended">Google Strict</button>
           </div>
         </div>
 
         <div class="rounded-xl bg-cyber-card border border-cyber-border p-5 space-y-3">
           <div class="flex items-center justify-between">
             <span class="text-xs font-mono font-bold text-white uppercase">Cabecera de Respuesta HTTP (Django)</span>
-            <button id="copy-csp-django" class="text-[11px] font-mono text-slate-400 hover:text-cyber-accent">Copiar</button>
+            <button id="copy-csp-django" class="text-[11px] font-mono text-slate-400 hover:text-cyber-pink">Copiar</button>
           </div>
 
           <pre id="csp-django-code" class="p-3 rounded bg-cyber-bg border border-cyber-border/80 font-mono text-[11px] text-slate-300 overflow-x-auto">
@@ -76,30 +76,30 @@ SECURE_CSP_HEADER = &#123;
             <input
               id="csp-payload-test"
               type="text"
-              class="w-full p-2.5 rounded-lg bg-cyber-bg border border-cyber-border font-mono text-xs text-cyber-accent focus:border-cyber-accent"
+              class="w-full p-2.5 rounded-lg bg-cyber-bg border border-cyber-border font-mono text-xs text-cyber-pastelPink focus:border-cyber-pink"
               value="<script>alert('XSS Bloqueado')</script>"
             />
           </div>
 
           <div class="flex flex-wrap gap-1.5">
-            <button class="csp-payload-btn px-2 py-0.5 rounded bg-cyber-panel text-slate-300 text-[11px] font-mono border border-cyber-border/60 hover:text-white" data-code="<script>alert(1)</script>">&lt;script&gt; sin nonce</button>
-            <button class="csp-payload-btn px-2 py-0.5 rounded bg-cyber-panel text-slate-300 text-[11px] font-mono border border-cyber-border/60 hover:text-white" data-code="<script nonce='r4nd0mN0nc3'>alert('Con nonce')</script>">&lt;script&gt; con nonce</button>
-            <button class="csp-payload-btn px-2 py-0.5 rounded bg-cyber-panel text-slate-300 text-[11px] font-mono border border-cyber-border/60 hover:text-white" data-code="<img src=x onerror=alert(1)>">Inline Event Handler</button>
-            <button class="csp-payload-btn px-2 py-0.5 rounded bg-cyber-panel text-slate-300 text-[11px] font-mono border border-cyber-border/60 hover:text-white" data-code="javascript:alert(1)">Pseudo-protocolo URI</button>
+            <button class="csp-payload-btn px-2 py-0.5 rounded bg-cyber-panel text-slate-300 hover:text-cyber-pastelPink text-[11px] font-mono border border-cyber-border/60" data-code="<script>alert(1)</script>">&lt;script&gt; sin nonce</button>
+            <button class="csp-payload-btn px-2 py-0.5 rounded bg-cyber-panel text-slate-300 hover:text-cyber-pastelPink text-[11px] font-mono border border-cyber-border/60" data-code="<script nonce='r4nd0mN0nc3'>alert('Con nonce')</script>">&lt;script&gt; con nonce</button>
+            <button class="csp-payload-btn px-2 py-0.5 rounded bg-cyber-panel text-slate-300 hover:text-cyber-pastelPink text-[11px] font-mono border border-cyber-border/60" data-code="<img src=x onerror=alert(1)>">Inline Event Handler</button>
+            <button class="csp-payload-btn px-2 py-0.5 rounded bg-cyber-panel text-slate-300 hover:text-cyber-pastelPink text-[11px] font-mono border border-cyber-border/60" data-code="javascript:alert(1)">Pseudo-protocolo URI</button>
           </div>
 
           <div id="csp-eval-result" class="p-4 rounded-lg border font-mono text-xs space-y-2"></div>
         </div>
 
         <div class="rounded-xl bg-cyber-card border border-cyber-border p-5 space-y-3">
-          <h3 class="text-xs font-mono font-bold text-cyber-glow uppercase">Por qué CSP es Crucial contra XSS</h3>
+          <h3 class="text-xs font-mono font-bold text-cyber-pastelPink uppercase">Por qué CSP es Crucial contra XSS</h3>
           <p class="text-xs text-slate-300 leading-relaxed font-sans">
             Incluso si un atacante logra inyectar código HTML en la página (a través de un fallo de sanitización), una política CSP estricta le impedirá al navegador ejecutar scripts inline o descargar scripts desde servidores no autorizados.
           </p>
           <div class="p-3 rounded bg-cyber-bg border border-cyber-border/60 font-mono text-[11px] space-y-1 text-slate-300">
             <div>• <strong class="text-cyber-accent">script-src 'nonce-...':</strong> Impide scripts inyectados sin el token criptográfico único por petición.</div>
-            <div>• <strong class="text-cyber-glow">object-src 'none':</strong> Bloquea Flash, Silverlight y plugins heredados.</div>
-            <div>• <strong class="text-purple-400">base-uri 'none':</strong> Evita que un atacante modifique el origen de scripts relativos.</div>
+            <div>• <strong class="text-cyber-pink">object-src 'none':</strong> Bloquea Flash, Silverlight y plugins heredados.</div>
+            <div>• <strong class="text-cyber-pastelPink">base-uri 'none':</strong> Evita que un atacante modifique el origen de scripts relativos.</div>
           </div>
         </div>
 
@@ -134,14 +134,14 @@ SECURE_CSP_HEADER = &#123;
         <p class="text-slate-300 text-xs">${res.reason}</p>
       `;
     } else {
-      resultBox.className = 'p-4 rounded-lg border border-emerald-500/50 bg-emerald-950/40 text-emerald-300 font-mono text-xs space-y-2';
+      resultBox.className = 'p-4 rounded-lg border border-purple-500/50 bg-purple-950/40 text-cyber-pastelPink font-mono text-xs space-y-2';
       resultBox.innerHTML = `
-        <div class="flex items-center gap-2 font-bold text-sm text-emerald-400">
-          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+        <div class="flex items-center gap-2 font-bold text-sm text-cyber-pink">
+          <span class="w-2.5 h-2.5 rounded-full bg-cyber-pink"></span>
           <span>BLOQUEADO CON ÉXITO POR CSP (SEGURO)</span>
         </div>
         <p class="text-slate-300 text-xs">${res.reason}</p>
-        <div class="text-[11px] text-emerald-400/80 font-bold">Directiva aplicada: ${res.violationType}</div>
+        <div class="text-[11px] text-cyber-pastelPink/80 font-bold">Directiva aplicada: ${res.violationType}</div>
       `;
     }
   }

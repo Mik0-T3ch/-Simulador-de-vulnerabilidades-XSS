@@ -8,7 +8,7 @@ import Layout from '../../layouts/Layout.astro';
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-cyber-border/80 pb-5">
       <div>
         <h1 class="text-2xl sm:text-3xl font-bold font-mono text-white flex items-center gap-3">
-          <span class="p-2 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-400">
+          <span class="p-2 rounded-lg bg-cyber-purple/20 border border-cyber-accent/40 text-cyber-pastelPink shadow-neon-purple/20">
             <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
           </span>
           Generador Profesional de Reportes de Seguridad
@@ -19,14 +19,14 @@ import Layout from '../../layouts/Layout.astro';
       </div>
 
       <div class="flex items-center gap-2">
-        <button id="export-pdf-btn" class="px-4 py-2 rounded-lg bg-cyber-accent hover:bg-emerald-400 text-black font-mono font-bold text-xs transition-all shadow-neon-green/20 flex items-center gap-2">
+        <button id="export-pdf-btn" class="px-4 py-2 rounded-lg bg-gradient-to-r from-cyber-purple to-cyber-pink hover:opacity-90 text-black font-mono font-bold text-xs transition-all shadow-neon-pink flex items-center gap-2">
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" /></svg>
           Imprimir / Guardar PDF
         </button>
-        <button id="export-md-btn" class="px-3 py-2 rounded-lg bg-cyber-panel hover:bg-cyber-card border border-cyber-border text-slate-200 text-xs font-mono transition-all">
+        <button id="export-md-btn" class="px-3 py-2 rounded-lg bg-cyber-panel hover:bg-cyber-card border border-cyber-border text-slate-200 hover:text-cyber-pastelPink text-xs font-mono transition-all">
           Markdown (.md)
         </button>
-        <button id="export-json-btn" class="px-3 py-2 rounded-lg bg-cyber-panel hover:bg-cyber-card border border-cyber-border text-slate-200 text-xs font-mono transition-all">
+        <button id="export-json-btn" class="px-3 py-2 rounded-lg bg-cyber-panel hover:bg-cyber-card border border-cyber-border text-slate-200 hover:text-cyber-pastelPink text-xs font-mono transition-all">
           JSON
         </button>
       </div>
@@ -47,7 +47,7 @@ import Layout from '../../layouts/Layout.astro';
             <input
               id="rep-title"
               type="text"
-              class="w-full p-2.5 rounded-lg bg-cyber-bg border border-cyber-border font-mono text-xs text-cyber-accent focus:border-cyber-accent"
+              class="w-full p-2.5 rounded-lg bg-cyber-bg border border-cyber-border font-mono text-xs text-cyber-pastelPink focus:border-cyber-pink"
               value="Cross-Site Scripting Reflejado en Endpoint de Búsqueda"
               required
             />
@@ -56,7 +56,7 @@ import Layout from '../../layouts/Layout.astro';
           <div class="grid grid-cols-2 gap-3">
             <div>
               <label for="rep-type" class="block text-xs font-mono text-slate-300 mb-1">Tipo de XSS:</label>
-              <select id="rep-type" class="w-full p-2.5 rounded-lg bg-cyber-bg border border-cyber-border font-mono text-xs text-slate-200 focus:border-cyber-accent">
+              <select id="rep-type" class="w-full p-2.5 rounded-lg bg-cyber-bg border border-cyber-border font-mono text-xs text-slate-200 focus:border-cyber-pink">
                 <option value="Reflected XSS (Reflejado)">Reflected XSS</option>
                 <option value="Stored XSS (Persistente)">Stored XSS</option>
                 <option value="DOM-Based XSS">DOM-Based XSS</option>
@@ -66,7 +66,7 @@ import Layout from '../../layouts/Layout.astro';
 
             <div>
               <label for="rep-severity" class="block text-xs font-mono text-slate-300 mb-1">Severidad:</label>
-              <select id="rep-severity" class="w-full p-2.5 rounded-lg bg-cyber-bg border border-cyber-border font-mono text-xs text-slate-200 focus:border-cyber-accent">
+              <select id="rep-severity" class="w-full p-2.5 rounded-lg bg-cyber-bg border border-cyber-border font-mono text-xs text-slate-200 focus:border-cyber-pink">
                 <option value="High (Alta)">High (Alta) - CVSS 8.8</option>
                 <option value="Medium (Media)">Medium (Media) - CVSS 6.1</option>
                 <option value="Critical (Crítica)">Critical (Crítica) - CVSS 9.6</option>
@@ -80,7 +80,7 @@ import Layout from '../../layouts/Layout.astro';
             <input
               id="rep-target"
               type="text"
-              class="w-full p-2.5 rounded-lg bg-cyber-bg border border-cyber-border font-mono text-xs text-slate-200 focus:border-cyber-accent"
+              class="w-full p-2.5 rounded-lg bg-cyber-bg border border-cyber-border font-mono text-xs text-slate-200 focus:border-cyber-pink"
               value="https://app.target-company.com/search?q="
             />
           </div>
@@ -90,7 +90,7 @@ import Layout from '../../layouts/Layout.astro';
             <input
               id="rep-payload"
               type="text"
-              class="w-full p-2.5 rounded-lg bg-cyber-bg border border-cyber-border font-mono text-xs text-cyber-glow focus:border-cyber-accent"
+              class="w-full p-2.5 rounded-lg bg-cyber-bg border border-cyber-border font-mono text-xs text-cyber-pastelPink focus:border-cyber-pink"
               value="<script>alert(document.cookie)</script>"
             />
           </div>
@@ -100,7 +100,7 @@ import Layout from '../../layouts/Layout.astro';
             <textarea
               id="rep-summary"
               rows="3"
-              class="w-full p-2.5 rounded-lg bg-cyber-bg border border-cyber-border font-mono text-xs text-slate-200 focus:border-cyber-accent resize-none"
+              class="w-full p-2.5 rounded-lg bg-cyber-bg border border-cyber-border font-mono text-xs text-slate-200 focus:border-cyber-pink resize-none"
             >Se identificó una vulnerabilidad de Cross-Site Scripting reflejado en el parámetro de consulta 'q'. La falta de codificación de entidades HTML permite a un atacante inyectar scripts arbitrarios que se ejecutan en el navegador de la víctima.</textarea>
           </div>
 
@@ -109,7 +109,7 @@ import Layout from '../../layouts/Layout.astro';
             <textarea
               id="rep-impact"
               rows="2"
-              class="w-full p-2.5 rounded-lg bg-cyber-bg border border-cyber-border font-mono text-xs text-slate-200 focus:border-cyber-accent resize-none"
+              class="w-full p-2.5 rounded-lg bg-cyber-bg border border-cyber-border font-mono text-xs text-slate-200 focus:border-cyber-pink resize-none"
             >Robo de cookies de autenticación de sesión, secuestro de cuentas de usuario, suplantación de identidad y ejecución de acciones no autorizadas en nombre de la víctima.</textarea>
           </div>
 
@@ -118,7 +118,7 @@ import Layout from '../../layouts/Layout.astro';
             <textarea
               id="rep-remediation"
               rows="2"
-              class="w-full p-2.5 rounded-lg bg-cyber-bg border border-cyber-border font-mono text-xs text-slate-200 focus:border-cyber-accent resize-none"
+              class="w-full p-2.5 rounded-lg bg-cyber-bg border border-cyber-border font-mono text-xs text-slate-200 focus:border-cyber-pink resize-none"
             >Aplicar Context-Aware Output Encoding en el backend antes de renderizar la respuesta, habilitar la flag HttpOnly en todas las cookies de sesión e implementar una política Content-Security-Policy (CSP) robusta.</textarea>
           </div>
 
@@ -126,7 +126,7 @@ import Layout from '../../layouts/Layout.astro';
             <button
               type="button"
               id="save-report-btn"
-              class="px-4 py-2 rounded-lg bg-cyber-accent text-black font-mono font-bold text-xs hover:bg-emerald-400 transition-all"
+              class="px-4 py-2 rounded-lg bg-gradient-to-r from-cyber-purple to-cyber-pink text-black font-mono font-bold text-xs hover:opacity-90 transition-all shadow-neon-pink"
             >
               Guardar Reporte en Historial
             </button>
@@ -148,11 +148,11 @@ import Layout from '../../layouts/Layout.astro';
           
           <div class="border-b-2 border-slate-900 pb-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <div class="text-xs font-mono font-bold text-slate-500 uppercase tracking-widest">Reporte Técnico de Vulnerabilidad</div>
+              <div class="text-xs font-mono font-bold text-purple-700 uppercase tracking-widest">Reporte Técnico de Vulnerabilidad</div>
               <h2 id="view-title" class="text-xl sm:text-2xl font-bold text-slate-900 mt-1">Cross-Site Scripting Reflejado en Endpoint de Búsqueda</h2>
             </div>
             <div class="text-right sm:self-center">
-              <span id="view-severity-badge" class="inline-block px-3 py-1 rounded bg-red-100 text-red-800 font-mono font-bold text-xs border border-red-300">
+              <span id="view-severity-badge" class="inline-block px-3 py-1 rounded bg-purple-100 text-purple-900 font-mono font-bold text-xs border border-purple-300">
                 HIGH / CVSS 8.8
               </span>
             </div>
@@ -161,7 +161,7 @@ import Layout from '../../layouts/Layout.astro';
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs bg-slate-50 p-4 rounded-lg border border-slate-200">
             <div><strong>Tipo:</strong> <span id="view-type">Reflected XSS (Reflejado)</span></div>
             <div><strong>Taxonomía:</strong> <span>CWE-79 / OWASP A03:2021</span></div>
-            <div><strong>Endpoint Afectado:</strong> <span id="view-target" class="font-mono text-blue-700 break-all">https://app.target-company.com/search?q=</span></div>
+            <div><strong>Endpoint Afectado:</strong> <span id="view-target" class="font-mono text-purple-700 break-all">https://app.target-company.com/search?q=</span></div>
             <div><strong>Fecha:</strong> <span id="view-date">2026-08-26</span></div>
           </div>
 
@@ -173,7 +173,7 @@ import Layout from '../../layouts/Layout.astro';
           <div class="space-y-2 text-xs text-slate-800">
             <h3 class="font-bold text-sm text-slate-900 uppercase tracking-wider border-b border-slate-200 pb-1">2. Prueba de Concepto (PoC)</h3>
             <p class="leading-relaxed">El vector de inyección confirmado es:</p>
-            <pre id="view-payload" class="p-3 bg-slate-900 text-emerald-400 font-mono text-xs rounded overflow-x-auto"></pre>
+            <pre id="view-payload" class="p-3 bg-slate-950 text-pink-300 font-mono text-xs rounded overflow-x-auto border border-purple-900"></pre>
           </div>
 
           <div class="space-y-2 text-xs text-slate-800">
@@ -250,9 +250,9 @@ import Layout from '../../layouts/Layout.astro';
     if (viewBadge) {
       viewBadge.textContent = severity.toUpperCase();
       if (severity.includes('High') || severity.includes('Critical')) {
-        viewBadge.className = 'inline-block px-3 py-1 rounded bg-red-100 text-red-800 font-mono font-bold text-xs border border-red-300';
+        viewBadge.className = 'inline-block px-3 py-1 rounded bg-purple-100 text-purple-900 font-mono font-bold text-xs border border-purple-300';
       } else {
-        viewBadge.className = 'inline-block px-3 py-1 rounded bg-amber-100 text-amber-800 font-mono font-bold text-xs border border-amber-300';
+        viewBadge.className = 'inline-block px-3 py-1 rounded bg-pink-100 text-pink-900 font-mono font-bold text-xs border border-pink-300';
       }
     }
   }
@@ -274,7 +274,7 @@ import Layout from '../../layouts/Layout.astro';
           <div class="text-[10px] text-slate-500">${new Date(r.createdAt).toLocaleDateString()} - ${r.severity}</div>
         </div>
         <div class="flex items-center gap-2">
-          <button class="load-report-btn text-cyber-accent hover:underline text-[11px]" data-id="${r.id}">Cargar</button>
+          <button class="load-report-btn text-cyber-pastelPink hover:underline text-[11px]" data-id="${r.id}">Cargar</button>
           <button class="del-report-btn text-slate-500 hover:text-red-400 text-[11px]" data-id="${r.id}">Borrar</button>
         </div>
       </div>

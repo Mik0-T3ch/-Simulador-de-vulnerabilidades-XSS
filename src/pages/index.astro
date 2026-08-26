@@ -7,30 +7,32 @@ import Badge from '../components/Badge.astro';
 <Layout title="Dashboard | Simulador de Vulnerabilidades XSS">
   <div class="space-y-8">
     
-    <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-cyber-card via-cyber-panel to-slate-900 border border-cyber-border p-6 sm:p-8">
-      <div class="absolute -right-10 -top-10 w-64 h-64 bg-cyber-accent/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-cyber-card via-cyber-panel to-[#140c24] border border-cyber-border p-6 sm:p-8 shadow-neon-purple/10">
+      <div class="absolute -right-10 -top-10 w-72 h-72 bg-cyber-purple/15 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute right-40 -bottom-10 w-48 h-48 bg-cyber-pink/10 rounded-full blur-2xl pointer-events-none"></div>
+      
       <div class="relative z-10 max-w-3xl">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyber-accent/10 border border-cyber-accent/30 text-cyber-accent text-xs font-mono mb-4">
-          <span class="w-2 h-2 rounded-full bg-cyber-accent animate-ping"></span>
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyber-purple/20 border border-cyber-accent/40 text-cyber-pastelPink text-xs font-mono mb-4">
+          <span class="w-2 h-2 rounded-full bg-cyber-pink animate-ping"></span>
           <span>Plataforma de Simulación & Auditoría XSS</span>
         </div>
         <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-white font-mono">
-          Simulador de <span class="text-cyber-accent">Vulnerabilidades XSS</span>
+          Simulador de <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyber-accent via-cyber-pink to-cyber-pastelPink">Vulnerabilidades XSS</span>
         </h1>
-        <p class="mt-3 text-sm sm:text-base text-slate-300 leading-relaxed">
+        <p class="mt-3 text-sm sm:text-base text-slate-300 leading-relaxed font-sans">
           Entorno educativo profesional para comprender, simular y mitigar ataques Cross-Site Scripting (Reflected, Stored y DOM), analizar vectores con CVSS v3.1 y generar reportes ejecutivos de seguridad.
         </p>
         <div class="mt-6 flex flex-wrap gap-3">
-          <a href="/labs" class="px-5 py-2.5 rounded-lg bg-cyber-accent hover:bg-emerald-400 text-black font-mono font-bold text-xs transition-all shadow-neon-green/30 shadow-lg flex items-center gap-2">
+          <a href="/labs" class="px-5 py-2.5 rounded-lg bg-gradient-to-r from-cyber-purple to-cyber-pink hover:opacity-95 text-black font-mono font-bold text-xs transition-all shadow-neon-pink shadow-lg flex items-center gap-2">
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
             Iniciar Laboratorios
           </a>
-          <a href="/sandbox" class="px-5 py-2.5 rounded-lg bg-cyber-panel hover:bg-cyber-card border border-cyber-border text-slate-200 font-mono text-xs transition-all flex items-center gap-2">
-            <svg class="w-4 h-4 text-cyber-glow" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+          <a href="/sandbox" class="px-5 py-2.5 rounded-lg bg-cyber-panel hover:bg-cyber-card border border-cyber-border hover:border-cyber-pink/50 text-slate-200 font-mono text-xs transition-all flex items-center gap-2">
+            <svg class="w-4 h-4 text-cyber-pastelPink" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
             Sandbox Seguro
           </a>
-          <a href="/reportes" class="px-5 py-2.5 rounded-lg bg-cyber-panel hover:bg-cyber-card border border-cyber-border text-slate-200 font-mono text-xs transition-all flex items-center gap-2">
-            <svg class="w-4 h-4 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+          <a href="/reportes" class="px-5 py-2.5 rounded-lg bg-cyber-panel hover:bg-cyber-card border border-cyber-border hover:border-cyber-accent/50 text-slate-200 font-mono text-xs transition-all flex items-center gap-2">
+            <svg class="w-4 h-4 text-cyber-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
             Generar Reporte
           </a>
         </div>
@@ -42,21 +44,21 @@ import Badge from '../components/Badge.astro';
         title="Simulaciones Ejecutadas"
         value="0"
         change="Total registros"
-        variant="emerald"
+        variant="purple"
         icon='<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>'
       />
       <MetricCard
         title="Vulnerabilidades Triggers"
         value="0"
         change="Impactos DOM"
-        variant="red"
+        variant="pink"
         icon='<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>'
       />
       <MetricCard
         title="CVSS Promedio"
         value="6.1"
         change="Severidad Media"
-        variant="amber"
+        variant="pastelPink"
         icon='<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>'
       />
       <MetricCard
@@ -70,10 +72,10 @@ import Badge from '../components/Badge.astro';
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
       
-      <div class="lg:col-span-2 rounded-xl bg-cyber-card/80 border border-cyber-border p-6 backdrop-blur-md">
+      <div class="lg:col-span-2 rounded-xl bg-cyber-card border border-cyber-border p-6 backdrop-blur-md">
         <div class="flex items-center justify-between mb-4">
           <div class="flex items-center gap-2">
-            <span class="w-2.5 h-2.5 rounded-full bg-cyber-accent"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-cyber-pink"></span>
             <h2 class="text-base font-mono font-bold text-white">Lanzador Rápido de Payload</h2>
           </div>
           <span class="text-xs font-mono text-slate-400">Prueba instantánea</span>
@@ -85,22 +87,22 @@ import Badge from '../components/Badge.astro';
             <textarea
               id="quick-payload"
               rows="3"
-              class="w-full p-3 rounded-lg bg-cyber-bg border border-cyber-border focus:border-cyber-accent focus:ring-1 focus:ring-cyber-accent text-cyber-accent font-mono text-xs placeholder-slate-600 resize-none"
+              class="w-full p-3 rounded-lg bg-cyber-bg border border-cyber-border focus:border-cyber-accent focus:ring-1 focus:ring-cyber-accent text-cyber-pastelPink font-mono text-xs placeholder-slate-600 resize-none"
               placeholder="Ej: <script>alert(document.cookie)</script> o <img src=x onerror=alert(1)>"
             ></textarea>
           </div>
 
           <div class="flex flex-wrap items-center justify-between gap-3">
             <div class="flex items-center gap-2">
-              <button type="button" class="preset-btn px-2.5 py-1 rounded bg-cyber-panel hover:bg-cyber-border text-slate-300 text-[11px] font-mono border border-cyber-border/60" data-code="<script>alert(1)</script>">Script Básico</button>
-              <button type="button" class="preset-btn px-2.5 py-1 rounded bg-cyber-panel hover:bg-cyber-border text-slate-300 text-[11px] font-mono border border-cyber-border/60" data-code="<img src=x onerror=alert('XSS')>">Img OnError</button>
-              <button type="button" class="preset-btn px-2.5 py-1 rounded bg-cyber-panel hover:bg-cyber-border text-slate-300 text-[11px] font-mono border border-cyber-border/60" data-code="javascript:alert(document.domain)">URI Scheme</button>
+              <button type="button" class="preset-btn px-2.5 py-1 rounded bg-cyber-panel hover:bg-cyber-purple/20 text-slate-300 hover:text-cyber-pastelPink text-[11px] font-mono border border-cyber-border/80" data-code="<script>alert(1)</script>">Script Básico</button>
+              <button type="button" class="preset-btn px-2.5 py-1 rounded bg-cyber-panel hover:bg-cyber-purple/20 text-slate-300 hover:text-cyber-pastelPink text-[11px] font-mono border border-cyber-border/80" data-code="<img src=x onerror=alert('XSS')>">Img OnError</button>
+              <button type="button" class="preset-btn px-2.5 py-1 rounded bg-cyber-panel hover:bg-cyber-purple/20 text-slate-300 hover:text-cyber-pastelPink text-[11px] font-mono border border-cyber-border/80" data-code="javascript:alert(document.domain)">URI Scheme</button>
             </div>
 
             <div class="flex items-center gap-2">
               <button
                 type="submit"
-                class="px-4 py-2 rounded-lg bg-cyber-accent hover:bg-emerald-400 text-black font-mono font-bold text-xs transition-all shadow-neon-green/20 shadow flex items-center gap-2"
+                class="px-4 py-2 rounded-lg bg-gradient-to-r from-cyber-purple to-cyber-pink hover:opacity-90 text-black font-mono font-bold text-xs transition-all shadow-neon-pink flex items-center gap-2"
               >
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
                 Analizar & Probar
@@ -109,35 +111,35 @@ import Badge from '../components/Badge.astro';
           </div>
         </form>
 
-        <div id="quick-analysis-result" class="mt-5 hidden rounded-lg border border-cyber-border bg-cyber-panel/60 p-4 font-mono text-xs space-y-3">
+        <div id="quick-analysis-result" class="mt-5 hidden rounded-lg border border-cyber-border bg-cyber-panel/80 p-4 font-mono text-xs space-y-3">
           <div class="flex items-center justify-between">
             <span class="font-bold text-white">Resultado del Análisis:</span>
             <div id="quick-badge-container"></div>
           </div>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-slate-300">
-            <div><span class="text-slate-500">CVSS v3.1:</span> <span id="quick-cvss" class="text-cyber-glow font-bold"></span></div>
+            <div><span class="text-slate-500">CVSS v3.1:</span> <span id="quick-cvss" class="text-cyber-pastelPink font-bold"></span></div>
             <div><span class="text-slate-500">Vector Detectado:</span> <span id="quick-vector" class="text-slate-200"></span></div>
           </div>
           <p id="quick-remediation" class="text-slate-400 text-[11px] border-t border-cyber-border/60 pt-2"></p>
           <div class="flex items-center justify-end gap-2 pt-1">
-            <a id="quick-sandbox-link" href="/sandbox" class="text-cyber-accent hover:underline text-[11px]">Abrir en Sandbox aislado →</a>
+            <a id="quick-sandbox-link" href="/sandbox" class="text-cyber-pink hover:underline text-[11px]">Abrir en Sandbox aislado →</a>
           </div>
         </div>
       </div>
 
-      <div class="rounded-xl bg-cyber-card/80 border border-cyber-border p-6 backdrop-blur-md flex flex-col">
+      <div class="rounded-xl bg-cyber-card border border-cyber-border p-6 backdrop-blur-md flex flex-col">
         <div class="flex items-center justify-between mb-4">
           <div class="flex items-center gap-2">
-            <span class="w-2.5 h-2.5 rounded-full bg-cyber-glow"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-cyber-accent"></span>
             <h2 class="text-base font-mono font-bold text-white">Estado de la Víctima</h2>
           </div>
-          <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-950/60 text-emerald-300 border border-emerald-500/40">Simulación Activa</span>
+          <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-purple-950/60 text-cyber-pastelPink border border-cyber-purple/40">Simulación Activa</span>
         </div>
 
         <div class="space-y-3 font-mono text-xs flex-1">
           <div class="p-3 rounded-lg bg-cyber-bg border border-cyber-border/60 space-y-1">
             <div class="text-slate-500 text-[10px] uppercase">Cookie de Sesión Simulada:</div>
-            <div class="text-cyber-glow font-bold truncate">session_id=SEC_ADMIN_88319f0</div>
+            <div class="text-cyber-pastelPink font-bold truncate">session_id=SEC_ADMIN_88319f0</div>
           </div>
 
           <div class="p-3 rounded-lg bg-cyber-bg border border-cyber-border/60 space-y-1">
@@ -156,16 +158,16 @@ import Badge from '../components/Badge.astro';
 
         <div class="mt-4 pt-3 border-t border-cyber-border/60 flex items-center justify-between text-[11px] font-mono text-slate-400">
           <span>Sandbox Aislado:</span>
-          <span class="text-cyber-accent">iframe + postMessage</span>
+          <span class="text-cyber-pink">iframe + postMessage</span>
         </div>
       </div>
 
     </div>
 
-    <div class="rounded-xl bg-cyber-card/80 border border-cyber-border p-6 backdrop-blur-md">
+    <div class="rounded-xl bg-cyber-card border border-cyber-border p-6 backdrop-blur-md">
       <div class="flex items-center justify-between mb-4">
         <div class="flex items-center gap-2">
-          <svg class="w-4 h-4 text-cyber-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+          <svg class="w-4 h-4 text-cyber-pink" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
           <h2 class="text-base font-mono font-bold text-white">Registro de Actividad Reciente</h2>
         </div>
         <button id="clear-logs-btn" class="text-xs font-mono text-slate-400 hover:text-red-400 transition-colors">
@@ -196,20 +198,20 @@ import Badge from '../components/Badge.astro';
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <div class="p-5 rounded-xl bg-cyber-card/60 border border-cyber-border space-y-2">
+      <div class="p-5 rounded-xl bg-cyber-card border border-cyber-border space-y-2">
         <div class="text-xs font-mono text-cyber-accent font-bold">1. Reflected XSS (Reflejado)</div>
         <p class="text-xs text-slate-300">
           Ocurre cuando la aplicación web recibe datos en una petición HTTP y los incluye de inmediato en la respuesta de forma no segura.
         </p>
       </div>
-      <div class="p-5 rounded-xl bg-cyber-card/60 border border-cyber-border space-y-2">
-        <div class="text-xs font-mono text-cyber-glow font-bold">2. Stored XSS (Almacenado)</div>
+      <div class="p-5 rounded-xl bg-cyber-card border border-cyber-border space-y-2">
+        <div class="text-xs font-mono text-cyber-pink font-bold">2. Stored XSS (Almacenado)</div>
         <p class="text-xs text-slate-300">
           El payload se almacena en la base de datos o almacenamiento persistente y se ejecuta cada vez que cualquier víctima visualiza el registro.
         </p>
       </div>
-      <div class="p-5 rounded-xl bg-cyber-card/60 border border-cyber-border space-y-2">
-        <div class="text-xs font-mono text-purple-400 font-bold">3. DOM-Based XSS</div>
+      <div class="p-5 rounded-xl bg-cyber-card border border-cyber-border space-y-2">
+        <div class="text-xs font-mono text-cyber-pastelPink font-bold">3. DOM-Based XSS</div>
         <p class="text-xs text-slate-300">
           La vulnerabilidad existe puramente en el código JavaScript del cliente, al procesar datos de una fuente insegura hacia un sumidero (sink).
         </p>
@@ -264,15 +266,15 @@ import Badge from '../components/Badge.astro';
       const timeStr = date.toLocaleTimeString();
       const isDangerous = log.severity === 'High' || log.severity === 'Critical';
       return `
-        <tr class="hover:bg-cyber-panel/40 transition-colors">
+        <tr class="hover:bg-cyber-panel/60 transition-colors">
           <td class="py-2.5 text-slate-400">${timeStr}</td>
           <td class="py-2.5 text-slate-300">${log.module || 'Dashboard'}</td>
-          <td class="py-2.5 text-cyber-accent font-bold truncate max-w-[200px]" title="${escapeHtml(log.payload)}">${escapeHtml(log.payload)}</td>
+          <td class="py-2.5 text-cyber-pastelPink font-bold truncate max-w-[200px]" title="${escapeHtml(log.payload)}">${escapeHtml(log.payload)}</td>
           <td class="py-2.5">
             <span class="px-2 py-0.5 rounded text-[10px] font-bold ${
-              log.severity === 'High' || log.severity === 'Critical' ? 'bg-red-950/80 text-red-400 border border-red-500/40' :
-              log.severity === 'Medium' ? 'bg-amber-950/80 text-amber-300 border border-amber-500/40' :
-              'bg-blue-950/80 text-blue-300 border border-blue-500/40'
+              log.severity === 'High' || log.severity === 'Critical' ? 'bg-red-950/80 text-red-300 border border-red-500/40' :
+              log.severity === 'Medium' ? 'bg-purple-950/80 text-purple-300 border border-purple-500/40' :
+              'bg-pink-950/80 text-pink-300 border border-pink-500/40'
             }">${log.severity || 'Info'}</span>
           </td>
           <td class="py-2.5 ${isDangerous ? 'text-cyber-danger' : 'text-slate-300'} font-semibold">${log.result || 'Analizado'}</td>
@@ -323,8 +325,8 @@ import Badge from '../components/Badge.astro';
           badgeContainer.innerHTML = `
             <span class="px-2.5 py-0.5 rounded text-xs font-mono font-bold ${
               analysis.severity === 'High' ? 'bg-red-950 text-red-400 border border-red-500' :
-              analysis.severity === 'Medium' ? 'bg-amber-950 text-amber-300 border border-amber-500' :
-              'bg-blue-950 text-blue-300 border border-blue-500'
+              analysis.severity === 'Medium' ? 'bg-purple-950 text-purple-300 border border-purple-500' :
+              'bg-pink-950 text-pink-300 border border-pink-500'
             }">${analysis.severity}</span>
           `;
         }

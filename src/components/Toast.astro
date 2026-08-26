@@ -7,18 +7,18 @@
 
     const toast = document.createElement('div');
     toast.className = `pointer-events-auto px-4 py-3 rounded-lg border font-mono text-xs shadow-lg transition-all duration-300 transform translate-y-2 opacity-0 flex items-center gap-3 backdrop-blur-md ${
-      type === 'success' ? 'bg-emerald-950/90 text-emerald-300 border-emerald-500/50' :
+      type === 'success' ? 'bg-purple-950/90 text-cyber-pastelPink border-cyber-pink/50 shadow-neon-pink' :
       type === 'danger' ? 'bg-red-950/90 text-red-300 border-red-500/50' :
       type === 'warning' ? 'bg-amber-950/90 text-amber-300 border-amber-500/50' :
-      'bg-cyber-panel/90 text-cyber-glow border-cyber-glow/50'
+      'bg-cyber-panel/90 text-cyber-pastelPink border-cyber-purple/50 shadow-neon-purple'
     }`;
 
     toast.innerHTML = `
       <span class="w-2 h-2 rounded-full ${
-        type === 'success' ? 'bg-emerald-400' :
+        type === 'success' ? 'bg-cyber-pink' :
         type === 'danger' ? 'bg-red-400' :
         type === 'warning' ? 'bg-amber-400' :
-        'bg-cyber-glow'
+        'bg-cyber-accent'
       }"></span>
       <span>${message}</span>
     `;

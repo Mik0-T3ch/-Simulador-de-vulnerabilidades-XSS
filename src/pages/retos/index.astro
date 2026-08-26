@@ -8,7 +8,7 @@ import Layout from '../../layouts/Layout.astro';
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-cyber-border/80 pb-5">
       <div>
         <h1 class="text-2xl sm:text-3xl font-bold font-mono text-white flex items-center gap-3">
-          <span class="p-2 rounded-lg bg-cyber-purple/10 border border-cyber-purple/30 text-purple-400">
+          <span class="p-2 rounded-lg bg-cyber-purple/20 border border-cyber-accent/40 text-cyber-pastelPink shadow-neon-purple/20">
             <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" /></svg>
           </span>
           Desafíos Prácticos & Retos CTF
@@ -22,7 +22,7 @@ import Layout from '../../layouts/Layout.astro';
         <div class="px-4 py-2 rounded-xl bg-cyber-card border border-cyber-border flex items-center gap-3">
           <div class="text-right">
             <div class="text-[10px] font-mono text-slate-400 uppercase">Puntuación Total</div>
-            <div class="text-lg font-mono font-bold text-cyber-accent" id="ctf-total-points">0 / 1950 pts</div>
+            <div class="text-lg font-mono font-bold text-cyber-pastelPink" id="ctf-total-points">0 / 1950 pts</div>
           </div>
         </div>
         <button id="reset-ctf-btn" class="px-3 py-2 rounded-lg bg-cyber-panel hover:bg-red-950 text-slate-400 hover:text-red-400 border border-cyber-border text-xs font-mono transition-all">
@@ -44,13 +44,13 @@ import Layout from '../../layouts/Layout.astro';
           <div class="flex flex-wrap items-center justify-between gap-3 border-b border-cyber-border/80 pb-4">
             <div>
               <div class="flex items-center gap-2">
-                <span id="challenge-badge-level" class="px-2 py-0.5 rounded text-[11px] font-mono font-bold bg-cyber-panel text-cyber-accent border border-cyber-border">Nivel 1</span>
-                <span id="challenge-badge-diff" class="px-2 py-0.5 rounded text-[11px] font-mono font-bold bg-emerald-950 text-emerald-300 border border-emerald-500/40">Fácil</span>
+                <span id="challenge-badge-level" class="px-2 py-0.5 rounded text-[11px] font-mono font-bold bg-cyber-panel text-cyber-pastelPink border border-cyber-border">Nivel 1</span>
+                <span id="challenge-badge-diff" class="px-2 py-0.5 rounded text-[11px] font-mono font-bold bg-purple-950 text-purple-300 border border-purple-500/40">Fácil</span>
               </div>
               <h2 id="challenge-title" class="text-lg font-mono font-bold text-white mt-2">Cargando reto...</h2>
             </div>
             <div class="text-right">
-              <span id="challenge-points" class="text-base font-mono font-bold text-cyber-glow">+100 pts</span>
+              <span id="challenge-points" class="text-base font-mono font-bold text-cyber-pink">+100 pts</span>
             </div>
           </div>
 
@@ -61,12 +61,12 @@ import Layout from '../../layouts/Layout.astro';
 
           <div class="space-y-2">
             <div class="text-xs font-mono text-slate-400">Contexto de la Plantilla Vulnerable:</div>
-            <pre id="challenge-template" class="p-3 rounded bg-cyber-bg border border-cyber-border font-mono text-xs text-cyber-glow overflow-x-auto"></pre>
+            <pre id="challenge-template" class="p-3 rounded bg-cyber-bg border border-cyber-border font-mono text-xs text-cyber-pastelPink overflow-x-auto"></pre>
           </div>
 
           <div class="space-y-2">
             <div class="text-xs font-mono text-slate-400">Objetivo:</div>
-            <div id="challenge-goal" class="p-3 rounded bg-cyber-panel/60 border border-cyber-border text-xs font-mono text-cyber-accent"></div>
+            <div id="challenge-goal" class="p-3 rounded bg-cyber-panel/80 border border-cyber-border text-xs font-mono text-cyber-accent"></div>
           </div>
 
           <div class="space-y-3 pt-2">
@@ -75,12 +75,12 @@ import Layout from '../../layouts/Layout.astro';
               <input
                 id="challenge-input"
                 type="text"
-                class="flex-1 p-3 rounded-lg bg-cyber-bg border border-cyber-border font-mono text-xs text-cyber-accent focus:border-cyber-accent"
+                class="flex-1 p-3 rounded-lg bg-cyber-bg border border-cyber-border font-mono text-xs text-cyber-pastelPink focus:border-cyber-pink"
                 placeholder="Escribe tu payload aquí..."
               />
               <button
                 id="challenge-submit-btn"
-                class="px-5 py-3 rounded-lg bg-cyber-accent hover:bg-emerald-400 text-black font-mono font-bold text-xs transition-all shadow-neon-green/20"
+                class="px-5 py-3 rounded-lg bg-gradient-to-r from-cyber-purple to-cyber-pink hover:opacity-90 text-black font-mono font-bold text-xs transition-all shadow-neon-pink"
               >
                 Validar Solución
               </button>
@@ -92,7 +92,7 @@ import Layout from '../../layouts/Layout.astro';
           <div class="border-t border-cyber-border/80 pt-4 space-y-3">
             <div class="flex items-center justify-between">
               <span class="text-xs font-mono text-slate-400 font-semibold uppercase">Sistema de Pistas Graduales</span>
-              <button id="show-hint-btn" class="text-[11px] font-mono text-cyber-glow hover:underline">
+              <button id="show-hint-btn" class="text-[11px] font-mono text-cyber-pink hover:underline">
                 💡 Revelar Pista (<span id="hint-count-indicator">1</span>)
               </button>
             </div>
@@ -128,25 +128,25 @@ import Layout from '../../layouts/Layout.astro';
         return `
           <button
             class="challenge-card w-full text-left p-3 rounded-lg border transition-all ${
-              isCurrent ? 'bg-cyber-card border-cyber-accent shadow-neon-green/10' :
-              isCompleted ? 'bg-cyber-panel/40 border-emerald-500/40 text-slate-300' :
+              isCurrent ? 'bg-cyber-card border-cyber-pink shadow-neon-pink/20' :
+              isCompleted ? 'bg-cyber-panel/60 border-cyber-accent/40 text-slate-300' :
               'bg-cyber-panel/20 border-cyber-border hover:bg-cyber-panel text-slate-400'
             }"
             data-index="${idx}"
           >
             <div class="flex items-center justify-between text-xs font-mono">
-              <span class="font-bold ${isCurrent ? 'text-cyber-accent' : isCompleted ? 'text-emerald-400' : 'text-slate-200'}">
+              <span class="font-bold ${isCurrent ? 'text-cyber-pastelPink' : isCompleted ? 'text-cyber-pink' : 'text-slate-200'}">
                 Nivel ${ch.level}: ${ch.title}
               </span>
-              ${isCompleted ? '<span class="text-emerald-400 text-xs">✓ Completado</span>' : `<span class="text-slate-500 text-[10px]">${ch.points} pts</span>`}
+              ${isCompleted ? '<span class="text-cyber-pink text-xs">✓ Completado</span>' : `<span class="text-slate-500 text-[10px]">${ch.points} pts</span>`}
             </div>
             <div class="text-[11px] font-mono text-slate-500 mt-1 flex items-center justify-between">
               <span>Contexto: ${ch.context}</span>
               <span class="${
-                ch.difficulty === 'Fácil' ? 'text-emerald-400' :
+                ch.difficulty === 'Fácil' ? 'text-purple-300' :
                 ch.difficulty === 'Medio' ? 'text-amber-400' :
-                ch.difficulty === 'Difícil' ? 'text-red-400' :
-                'text-purple-400'
+                ch.difficulty === 'Difícil' ? 'text-pink-400' :
+                'text-fuchsia-400'
               }">${ch.difficulty}</span>
             </div>
           </button>
@@ -190,10 +190,10 @@ import Layout from '../../layouts/Layout.astro';
     if (diffBadge) {
       diffBadge.textContent = challenge.difficulty;
       diffBadge.className = `px-2 py-0.5 rounded text-[11px] font-mono font-bold ${
-        challenge.difficulty === 'Fácil' ? 'bg-emerald-950 text-emerald-300 border border-emerald-500/40' :
+        challenge.difficulty === 'Fácil' ? 'bg-purple-950 text-purple-300 border border-purple-500/40' :
         challenge.difficulty === 'Medio' ? 'bg-amber-950 text-amber-300 border border-amber-500/40' :
-        challenge.difficulty === 'Difícil' ? 'bg-red-950 text-red-300 border border-red-500/40' :
-        'bg-purple-950 text-purple-300 border border-purple-500/40'
+        challenge.difficulty === 'Difícil' ? 'bg-pink-950 text-pink-300 border border-pink-500/40' :
+        'bg-fuchsia-950 text-fuchsia-300 border border-fuchsia-500/40'
       }`;
     }
 
@@ -205,7 +205,7 @@ import Layout from '../../layouts/Layout.astro';
       for (let i = 0; i < revealedHintsCount; i++) {
         if (challenge.hints[i]) {
           const hintCard = document.createElement('div');
-          hintCard.className = 'p-2.5 rounded bg-cyber-panel border border-cyber-border/80 text-xs font-mono text-cyber-glow';
+          hintCard.className = 'p-2.5 rounded bg-cyber-panel border border-cyber-border/80 text-xs font-mono text-cyber-pastelPink';
           hintCard.innerHTML = `<span class="font-bold text-slate-400">Pista ${i + 1}:</span> ${challenge.hints[i]}`;
           hintsContainer.appendChild(hintCard);
         }
@@ -236,9 +236,9 @@ import Layout from '../../layouts/Layout.astro';
         cvss: 7.5
       });
 
-      feedback.className = 'p-4 rounded-lg bg-emerald-950/80 border border-emerald-500 text-emerald-300 font-mono text-xs space-y-1';
+      feedback.className = 'p-4 rounded-lg bg-purple-950/80 border border-cyber-pink text-cyber-pastelPink font-mono text-xs space-y-1 shadow-neon-pink';
       feedback.innerHTML = `
-        <div class="font-bold text-sm text-emerald-400">🎉 ¡Vulnerabilidad Explotada con Éxito!</div>
+        <div class="font-bold text-sm text-cyber-pink">🎉 ¡Vulnerabilidad Explotada con Éxito!</div>
         <div>Has superado el ${challenge.title} sumando <strong>+${challenge.points} puntos</strong>.</div>
       `;
 

@@ -9,7 +9,7 @@ import { CHEATSHEET_CATEGORIES } from '../../utils/cheatsheetData.js';
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-cyber-border/80 pb-5">
       <div>
         <h1 class="text-2xl sm:text-3xl font-bold font-mono text-white flex items-center gap-3">
-          <span class="p-2 rounded-lg bg-cyber-accent/10 border border-cyber-accent/30 text-cyber-accent">
+          <span class="p-2 rounded-lg bg-cyber-purple/20 border border-cyber-accent/40 text-cyber-pastelPink shadow-neon-purple/20">
             <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
           </span>
           Biblioteca de Vectores & CheatSheet XSS
@@ -23,7 +23,7 @@ import { CHEATSHEET_CATEGORIES } from '../../utils/cheatsheetData.js';
         <input
           id="cheatsheet-search"
           type="text"
-          class="w-full p-2.5 rounded-lg bg-cyber-card border border-cyber-border font-mono text-xs text-cyber-accent focus:border-cyber-accent placeholder-slate-500"
+          class="w-full p-2.5 rounded-lg bg-cyber-card border border-cyber-border font-mono text-xs text-cyber-pastelPink focus:border-cyber-pink placeholder-slate-500"
           placeholder="Buscar vector o tag..."
         />
       </div>
@@ -33,18 +33,18 @@ import { CHEATSHEET_CATEGORIES } from '../../utils/cheatsheetData.js';
       {CHEATSHEET_CATEGORIES.map((cat) => (
         <div class="space-y-4 category-section" data-cat={cat.id}>
           <div class="flex items-center gap-2 border-b border-cyber-border/60 pb-2">
-            <span class="w-2.5 h-2.5 rounded-full bg-cyber-accent"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-cyber-pink"></span>
             <h2 class="text-base font-mono font-bold text-white uppercase">{cat.name}</h2>
-            <span class="text-xs font-mono text-slate-500">({cat.payloads.length} vectores)</span>
+            <span class="text-xs font-mono text-slate-400">({cat.payloads.length} vectores)</span>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {cat.payloads.map((p) => (
-              <div class="payload-card p-4 rounded-xl bg-cyber-card border border-cyber-border hover:border-cyber-border/90 flex flex-col justify-between space-y-3 transition-all">
+              <div class="payload-card p-4 rounded-xl bg-cyber-card border border-cyber-border hover:border-cyber-purple/60 flex flex-col justify-between space-y-3 transition-all hover:-translate-y-0.5">
                 <div class="space-y-2">
                   <div class="flex items-start justify-between gap-2">
                     <h3 class="text-xs font-mono font-bold text-slate-200 card-title">{p.title}</h3>
-                    <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-cyber-panel text-cyber-glow border border-cyber-glow/30 whitespace-nowrap">
+                    <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-cyber-panel text-cyber-pastelPink border border-cyber-pink/30 whitespace-nowrap">
                       {p.context}
                     </span>
                   </div>
@@ -52,18 +52,18 @@ import { CHEATSHEET_CATEGORIES } from '../../utils/cheatsheetData.js';
                 </div>
 
                 <div class="space-y-2 pt-1">
-                  <pre class="p-2.5 rounded bg-cyber-bg border border-cyber-border/80 font-mono text-[11px] text-cyber-accent overflow-x-auto whitespace-pre-wrap break-all card-payload">{p.payload}</pre>
+                  <pre class="p-2.5 rounded bg-cyber-bg border border-cyber-border/80 font-mono text-[11px] text-cyber-pastelPink overflow-x-auto whitespace-pre-wrap break-all card-payload">{p.payload}</pre>
                   
                   <div class="flex items-center justify-end gap-2 pt-1">
                     <button
-                      class="copy-payload-btn px-2.5 py-1 rounded bg-cyber-panel text-slate-300 hover:text-white text-[11px] font-mono border border-cyber-border/60"
+                      class="copy-payload-btn px-2.5 py-1 rounded bg-cyber-panel text-slate-300 hover:text-cyber-pastelPink text-[11px] font-mono border border-cyber-border/60"
                       data-payload={p.payload}
                     >
                       Copiar
                     </button>
                     <a
                       href={`/sandbox`}
-                      class="px-2.5 py-1 rounded bg-cyber-accent/15 text-cyber-accent hover:bg-cyber-accent hover:text-black text-[11px] font-mono border border-cyber-accent/30 transition-all font-bold"
+                      class="px-2.5 py-1 rounded bg-gradient-to-r from-cyber-purple/25 to-cyber-pink/25 text-cyber-pastelPink hover:from-cyber-purple hover:to-cyber-pink hover:text-black text-[11px] font-mono border border-cyber-pink/30 transition-all font-bold"
                     >
                       Probar en Sandbox →
                     </a>

