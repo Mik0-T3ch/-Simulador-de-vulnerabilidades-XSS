@@ -1,0 +1,29 @@
+{
+  "name": "-simulador-de-vulnerabilidades-xss-main",
+  "version": "1.0.0",
+  "description": "· Simulador de Vulnerabilidades XSS y Sistema de Reportes",
+  "main": "index.js",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mik0-T3ch/-Simulador-de-vulnerabilidades-XSS.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mik0-T3ch/-Simulador-de-vulnerabilidades-XSS/issues"
+  },
+  "homepage": "https://github.com/Mik0-T3ch/-Simulador-de-vulnerabilidades-XSS#readme",
+  "dependencies": {
+    "@astrojs/tailwind": "^6.0.2",
+    "astro": "^7.2.7",
+    "canvas-confetti": "^1.9.4",
+    "lucide-astro": "^0.556.0",
+    "tailwindcss": "^3.4.19"
+  }
+}

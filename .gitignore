@@ -1,1 +1,10 @@
-env
+node_modules
+dist
+.astro
+.env
+.env.*
+*.pyc
+__pycache__
+db.sqlite3
+.DS_Store
+Thumbs.db
