@@ -1,0 +1,424 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Generador de Reportes | Simulador de Vulnerabilidades">
+  <div class="space-y-8">
+    
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-cyber-border/80 pb-5">
+      <div>
+        <h1 class="text-2xl sm:text-3xl font-bold font-mono text-white flex items-center gap-3">
+          <span class="p-2 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-400">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+          </span>
+          Generador Profesional de Reportes de Seguridad
+        </h1>
+        <p class="text-xs sm:text-sm text-slate-400 mt-1 font-mono">
+          Crea reportes técnicos y ejecutivos listos para clientes o plataformas de Bug Bounty con exportación en PDF, Markdown y JSON.
+        </p>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button id="export-pdf-btn" class="px-4 py-2 rounded-lg bg-cyber-accent hover:bg-emerald-400 text-black font-mono font-bold text-xs transition-all shadow-neon-green/20 flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" /></svg>
+          Imprimir / Guardar PDF
+        </button>
+        <button id="export-md-btn" class="px-3 py-2 rounded-lg bg-cyber-panel hover:bg-cyber-card border border-cyber-border text-slate-200 text-xs font-mono transition-all">
+          Markdown (.md)
+        </button>
+        <button id="export-json-btn" class="px-3 py-2 rounded-lg bg-cyber-panel hover:bg-cyber-card border border-cyber-border text-slate-200 text-xs font-mono transition-all">
+          JSON
+        </button>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      
+      <div class="lg:col-span-5 space-y-4 no-print">
+        
+        <form id="report-form" class="rounded-xl bg-cyber-card border border-cyber-border p-5 space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-mono font-bold text-white uppercase">Datos de la Auditoría</span>
+            <span class="text-[10px] font-mono text-slate-400">Edición en Vivo</span>
+          </div>
+
+          <div>
+            <label for="rep-title" class="block text-xs font-mono text-slate-300 mb-1">Título del Hallazgo:</label>
+            <input
+              id="rep-title"
+              type="text"
+              class="w-full p-2.5 rounded-lg bg-cyber-bg border border-cyber-border font-mono text-xs text-cyber-accent focus:border-cyber-accent"
+              value="Cross-Site Scripting Reflejado en Endpoint de Búsqueda"
+              required
+            />
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label for="rep-type" class="block text-xs font-mono text-slate-300 mb-1">Tipo de XSS:</label>
+              <select id="rep-type" class="w-full p-2.5 rounded-lg bg-cyber-bg border border-cyber-border font-mono text-xs text-slate-200 focus:border-cyber-accent">
+                <option value="Reflected XSS (Reflejado)">Reflected XSS</option>
+                <option value="Stored XSS (Persistente)">Stored XSS</option>
+                <option value="DOM-Based XSS">DOM-Based XSS</option>
+                <option value="Mutation XSS (mXSS)">Mutation XSS</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="rep-severity" class="block text-xs font-mono text-slate-300 mb-1">Severidad:</label>
+              <select id="rep-severity" class="w-full p-2.5 rounded-lg bg-cyber-bg border border-cyber-border font-mono text-xs text-slate-200 focus:border-cyber-accent">
+                <option value="High (Alta)">High (Alta) - CVSS 8.8</option>
+                <option value="Medium (Media)">Medium (Media) - CVSS 6.1</option>
+                <option value="Critical (Crítica)">Critical (Crítica) - CVSS 9.6</option>
+                <option value="Low (Baja)">Low (Baja) - CVSS 4.3</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label for="rep-target" class="block text-xs font-mono text-slate-300 mb-1">URL / Endpoint Afectado:</label>
+            <input
+              id="rep-target"
+              type="text"
+              class="w-full p-2.5 rounded-lg bg-cyber-bg border border-cyber-border font-mono text-xs text-slate-200 focus:border-cyber-accent"
+              value="https://app.target-company.com/search?q="
+            />
+          </div>
+
+          <div>
+            <label for="rep-payload" class="block text-xs font-mono text-slate-300 mb-1">Payload de Demostración (PoC):</label>
+            <input
+              id="rep-payload"
+              type="text"
+              class="w-full p-2.5 rounded-lg bg-cyber-bg border border-cyber-border font-mono text-xs text-cyber-glow focus:border-cyber-accent"
+              value="<script>alert(document.cookie)</script>"
+            />
+          </div>
+
+          <div>
+            <label for="rep-summary" class="block text-xs font-mono text-slate-300 mb-1">Resumen Ejecutivo:</label>
+            <textarea
+              id="rep-summary"
+              rows="3"
+              class="w-full p-2.5 rounded-lg bg-cyber-bg border border-cyber-border font-mono text-xs text-slate-200 focus:border-cyber-accent resize-none"
+            >Se identificó una vulnerabilidad de Cross-Site Scripting reflejado en el parámetro de consulta 'q'. La falta de codificación de entidades HTML permite a un atacante inyectar scripts arbitrarios que se ejecutan en el navegador de la víctima.</textarea>
+          </div>
+
+          <div>
+            <label for="rep-impact" class="block text-xs font-mono text-slate-300 mb-1">Impacto Técnico & Negocio:</label>
+            <textarea
+              id="rep-impact"
+              rows="2"
+              class="w-full p-2.5 rounded-lg bg-cyber-bg border border-cyber-border font-mono text-xs text-slate-200 focus:border-cyber-accent resize-none"
+            >Robo de cookies de autenticación de sesión, secuestro de cuentas de usuario, suplantación de identidad y ejecución de acciones no autorizadas en nombre de la víctima.</textarea>
+          </div>
+
+          <div>
+            <label for="rep-remediation" class="block text-xs font-mono text-slate-300 mb-1">Remediación Propuesta:</label>
+            <textarea
+              id="rep-remediation"
+              rows="2"
+              class="w-full p-2.5 rounded-lg bg-cyber-bg border border-cyber-border font-mono text-xs text-slate-200 focus:border-cyber-accent resize-none"
+            >Aplicar Context-Aware Output Encoding en el backend antes de renderizar la respuesta, habilitar la flag HttpOnly en todas las cookies de sesión e implementar una política Content-Security-Policy (CSP) robusta.</textarea>
+          </div>
+
+          <div class="flex items-center justify-between pt-2">
+            <button
+              type="button"
+              id="save-report-btn"
+              class="px-4 py-2 rounded-lg bg-cyber-accent text-black font-mono font-bold text-xs hover:bg-emerald-400 transition-all"
+            >
+              Guardar Reporte en Historial
+            </button>
+          </div>
+        </form>
+
+        <div class="rounded-xl bg-cyber-card border border-cyber-border p-5 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-mono font-bold text-white uppercase">Historial de Reportes Guardados</span>
+          </div>
+          <div id="saved-reports-list" class="space-y-2 max-h-[220px] overflow-y-auto"></div>
+        </div>
+
+      </div>
+
+      <div class="lg:col-span-7">
+        
+        <div id="printable-report" class="rounded-xl bg-white text-slate-900 p-8 sm:p-10 shadow-2xl border border-slate-300 font-sans space-y-6">
+          
+          <div class="border-b-2 border-slate-900 pb-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <div class="text-xs font-mono font-bold text-slate-500 uppercase tracking-widest">Reporte Técnico de Vulnerabilidad</div>
+              <h2 id="view-title" class="text-xl sm:text-2xl font-bold text-slate-900 mt-1">Cross-Site Scripting Reflejado en Endpoint de Búsqueda</h2>
+            </div>
+            <div class="text-right sm:self-center">
+              <span id="view-severity-badge" class="inline-block px-3 py-1 rounded bg-red-100 text-red-800 font-mono font-bold text-xs border border-red-300">
+                HIGH / CVSS 8.8
+              </span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs bg-slate-50 p-4 rounded-lg border border-slate-200">
+            <div><strong>Tipo:</strong> <span id="view-type">Reflected XSS (Reflejado)</span></div>
+            <div><strong>Taxonomía:</strong> <span>CWE-79 / OWASP A03:2021</span></div>
+            <div><strong>Endpoint Afectado:</strong> <span id="view-target" class="font-mono text-blue-700 break-all">https://app.target-company.com/search?q=</span></div>
+            <div><strong>Fecha:</strong> <span id="view-date">2026-08-26</span></div>
+          </div>
+
+          <div class="space-y-2 text-xs text-slate-800">
+            <h3 class="font-bold text-sm text-slate-900 uppercase tracking-wider border-b border-slate-200 pb-1">1. Resumen Ejecutivo</h3>
+            <p id="view-summary" class="leading-relaxed"></p>
+          </div>
+
+          <div class="space-y-2 text-xs text-slate-800">
+            <h3 class="font-bold text-sm text-slate-900 uppercase tracking-wider border-b border-slate-200 pb-1">2. Prueba de Concepto (PoC)</h3>
+            <p class="leading-relaxed">El vector de inyección confirmado es:</p>
+            <pre id="view-payload" class="p-3 bg-slate-900 text-emerald-400 font-mono text-xs rounded overflow-x-auto"></pre>
+          </div>
+
+          <div class="space-y-2 text-xs text-slate-800">
+            <h3 class="font-bold text-sm text-slate-900 uppercase tracking-wider border-b border-slate-200 pb-1">3. Impacto Estimado</h3>
+            <p id="view-impact" class="leading-relaxed"></p>
+          </div>
+
+          <div class="space-y-2 text-xs text-slate-800">
+            <h3 class="font-bold text-sm text-slate-900 uppercase tracking-wider border-b border-slate-200 pb-1">4. Remediación & Recomendaciones</h3>
+            <p id="view-remediation" class="leading-relaxed"></p>
+          </div>
+
+          <div class="border-t border-slate-200 pt-4 flex items-center justify-between text-[11px] font-mono text-slate-400">
+            <span>Generado por Simulador de Vulnerabilidades XSS</span>
+            <span>Confidencial / Auditoría de Seguridad</span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</Layout>
+
+<style>
+  @media print {
+    body {
+      background: white !important;
+      color: black !important;
+    }
+    header, footer, .no-print, #toast-container {
+      display: none !important;
+    }
+    #printable-report {
+      border: none !important;
+      box-shadow: none !important;
+      padding: 0 !important;
+    }
+  }
+</style>
+
+<script>
+  import { getReports, saveReport, deleteReport } from '../../utils/storage.js';
+
+  function updatePreview() {
+    const title = (document.getElementById('rep-title') as HTMLInputElement)?.value || '';
+    const type = (document.getElementById('rep-type') as HTMLSelectElement)?.value || '';
+    const severity = (document.getElementById('rep-severity') as HTMLSelectElement)?.value || '';
+    const target = (document.getElementById('rep-target') as HTMLInputElement)?.value || '';
+    const payload = (document.getElementById('rep-payload') as HTMLInputElement)?.value || '';
+    const summary = (document.getElementById('rep-summary') as HTMLTextAreaElement)?.value || '';
+    const impact = (document.getElementById('rep-impact') as HTMLTextAreaElement)?.value || '';
+    const remediation = (document.getElementById('rep-remediation') as HTMLTextAreaElement)?.value || '';
+
+    const viewTitle = document.getElementById('view-title');
+    const viewType = document.getElementById('view-type');
+    const viewTarget = document.getElementById('view-target');
+    const viewPayload = document.getElementById('view-payload');
+    const viewSummary = document.getElementById('view-summary');
+    const viewImpact = document.getElementById('view-impact');
+    const viewRem = document.getElementById('view-remediation');
+    const viewBadge = document.getElementById('view-severity-badge');
+
+    if (viewTitle) viewTitle.textContent = title;
+    if (viewType) viewType.textContent = type;
+    if (viewTarget) viewTarget.textContent = target;
+    if (viewPayload) viewPayload.textContent = payload;
+    if (viewSummary) viewSummary.textContent = summary;
+    if (viewImpact) viewImpact.textContent = impact;
+    if (viewRem) viewRem.textContent = remediation;
+
+    if (viewBadge) {
+      viewBadge.textContent = severity.toUpperCase();
+      if (severity.includes('High') || severity.includes('Critical')) {
+        viewBadge.className = 'inline-block px-3 py-1 rounded bg-red-100 text-red-800 font-mono font-bold text-xs border border-red-300';
+      } else {
+        viewBadge.className = 'inline-block px-3 py-1 rounded bg-amber-100 text-amber-800 font-mono font-bold text-xs border border-amber-300';
+      }
+    }
+  }
+
+  function renderSavedReports() {
+    const list = document.getElementById('saved-reports-list');
+    if (!list) return;
+
+    const reports = getReports();
+    if (reports.length === 0) {
+      list.innerHTML = '<div class="text-slate-500 font-mono text-xs italic">No hay reportes guardados aún.</div>';
+      return;
+    }
+
+    list.innerHTML = reports.map(r => `
+      <div class="p-2.5 rounded bg-cyber-bg border border-cyber-border flex items-center justify-between text-xs font-mono">
+        <div class="truncate max-w-[240px]">
+          <div class="text-slate-200 font-bold truncate">${r.title}</div>
+          <div class="text-[10px] text-slate-500">${new Date(r.createdAt).toLocaleDateString()} - ${r.severity}</div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button class="load-report-btn text-cyber-accent hover:underline text-[11px]" data-id="${r.id}">Cargar</button>
+          <button class="del-report-btn text-slate-500 hover:text-red-400 text-[11px]" data-id="${r.id}">Borrar</button>
+        </div>
+      </div>
+    `).join('');
+
+    list.querySelectorAll('.load-report-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.getAttribute('data-id');
+        const report = reports.find(r => r.id === id);
+        if (report) {
+          (document.getElementById('rep-title') as HTMLInputElement).value = report.title;
+          (document.getElementById('rep-type') as HTMLSelectElement).value = report.type;
+          (document.getElementById('rep-severity') as HTMLSelectElement).value = report.severity;
+          (document.getElementById('rep-target') as HTMLInputElement).value = report.target;
+          (document.getElementById('rep-payload') as HTMLInputElement).value = report.payload;
+          (document.getElementById('rep-summary') as HTMLTextAreaElement).value = report.summary;
+          (document.getElementById('rep-impact') as HTMLTextAreaElement).value = report.impact;
+          (document.getElementById('rep-remediation') as HTMLTextAreaElement).value = report.remediation;
+          updatePreview();
+        }
+      });
+    });
+
+    list.querySelectorAll('.del-report-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.getAttribute('data-id');
+        if (id) {
+          deleteReport(id);
+          renderSavedReports();
+        }
+      });
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('report-form');
+    if (form) {
+      form.addEventListener('input', updatePreview);
+    }
+
+    const dateElem = document.getElementById('view-date');
+    if (dateElem) dateElem.textContent = new Date().toISOString().split('T')[0];
+
+    updatePreview();
+    renderSavedReports();
+
+    const saveBtn = document.getElementById('save-report-btn');
+    if (saveBtn) {
+      saveBtn.addEventListener('click', () => {
+        const reportData = {
+          title: (document.getElementById('rep-title') as HTMLInputElement).value,
+          type: (document.getElementById('rep-type') as HTMLSelectElement).value,
+          severity: (document.getElementById('rep-severity') as HTMLSelectElement).value,
+          target: (document.getElementById('rep-target') as HTMLInputElement).value,
+          payload: (document.getElementById('rep-payload') as HTMLInputElement).value,
+          summary: (document.getElementById('rep-summary') as HTMLTextAreaElement).value,
+          impact: (document.getElementById('rep-impact') as HTMLTextAreaElement).value,
+          remediation: (document.getElementById('rep-remediation') as HTMLTextAreaElement).value
+        };
+        saveReport(reportData);
+        renderSavedReports();
+        if (window.showToast) {
+          window.showToast('Reporte guardado en el historial local', 'success');
+        }
+      });
+    }
+
+    const exportPdf = document.getElementById('export-pdf-btn');
+    if (exportPdf) {
+      exportPdf.addEventListener('click', () => {
+        window.print();
+      });
+    }
+
+    const exportMd = document.getElementById('export-md-btn');
+    if (exportMd) {
+      exportMd.addEventListener('click', () => {
+        const title = (document.getElementById('rep-title') as HTMLInputElement).value;
+        const type = (document.getElementById('rep-type') as HTMLSelectElement).value;
+        const severity = (document.getElementById('rep-severity') as HTMLSelectElement).value;
+        const target = (document.getElementById('rep-target') as HTMLInputElement).value;
+        const payload = (document.getElementById('rep-payload') as HTMLInputElement).value;
+        const summary = (document.getElementById('rep-summary') as HTMLTextAreaElement).value;
+        const impact = (document.getElementById('rep-impact') as HTMLTextAreaElement).value;
+        const remediation = (document.getElementById('rep-remediation') as HTMLTextAreaElement).value;
+
+        const md = `# Reporte de Vulnerabilidad: ${title}
+
+- **Tipo:** ${type}
+- **Severidad:** ${severity}
+- **Endpoint:** \`${target}\`
+- **Fecha:** ${new Date().toISOString().split('T')[0]}
+- **Taxonomía:** CWE-79 / OWASP A03:2021
+
+---
+
+## 1. Resumen Ejecutivo
+${summary}
+
+## 2. Prueba de Concepto (PoC)
+\`\`\`html
+${payload}
+\`\`\`
+
+## 3. Impacto Estimado
+${impact}
+
+## 4. Remediación & Recomendaciones
+${remediation}
+`;
+
+        const blob = new Blob([md], { type: 'text/markdown' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `Reporte_XSS_${Date.now()}.md`;
+        a.click();
+        URL.revokeObjectURL(url);
+      });
+    }
+
+    const exportJson = document.getElementById('export-json-btn');
+    if (exportJson) {
+      exportJson.addEventListener('click', () => {
+        const data = {
+          title: (document.getElementById('rep-title') as HTMLInputElement).value,
+          type: (document.getElementById('rep-type') as HTMLSelectElement).value,
+          severity: (document.getElementById('rep-severity') as HTMLSelectElement).value,
+          target: (document.getElementById('rep-target') as HTMLInputElement).value,
+          payload: (document.getElementById('rep-payload') as HTMLInputElement).value,
+          summary: (document.getElementById('rep-summary') as HTMLTextAreaElement).value,
+          impact: (document.getElementById('rep-impact') as HTMLTextAreaElement).value,
+          remediation: (document.getElementById('rep-remediation') as HTMLTextAreaElement).value,
+          createdAt: new Date().toISOString()
+        };
+
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `Reporte_XSS_${Date.now()}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+      });
+    }
+  });
+</script>
