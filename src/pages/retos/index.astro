@@ -1,0 +1,304 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Retos CTF | Simulador de Vulnerabilidades XSS">
+  <div class="space-y-8">
+    
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-cyber-border/80 pb-5">
+      <div>
+        <h1 class="text-2xl sm:text-3xl font-bold font-mono text-white flex items-center gap-3">
+          <span class="p-2 rounded-lg bg-cyber-purple/10 border border-cyber-purple/30 text-purple-400">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" /></svg>
+          </span>
+          Desafíos Prácticos & Retos CTF
+        </h1>
+        <p class="text-xs sm:text-sm text-slate-400 mt-1 font-mono">
+          Supera los 8 niveles progresivos de dificultad y demuestra tu habilidad para identificar y explotar diferentes contextos de inyección XSS.
+        </p>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <div class="px-4 py-2 rounded-xl bg-cyber-card border border-cyber-border flex items-center gap-3">
+          <div class="text-right">
+            <div class="text-[10px] font-mono text-slate-400 uppercase">Puntuación Total</div>
+            <div class="text-lg font-mono font-bold text-cyber-accent" id="ctf-total-points">0 / 1950 pts</div>
+          </div>
+        </div>
+        <button id="reset-ctf-btn" class="px-3 py-2 rounded-lg bg-cyber-panel hover:bg-red-950 text-slate-400 hover:text-red-400 border border-cyber-border text-xs font-mono transition-all">
+          Reiniciar
+        </button>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      
+      <div class="lg:col-span-4 space-y-3">
+        <div class="text-xs font-mono uppercase text-slate-400 font-semibold px-1">Lista de Retos:</div>
+        <div id="ctf-challenges-list" class="space-y-2 max-h-[600px] overflow-y-auto pr-1"></div>
+      </div>
+
+      <div class="lg:col-span-8 space-y-4">
+        
+        <div class="rounded-xl bg-cyber-card border border-cyber-border p-6 space-y-5">
+          <div class="flex flex-wrap items-center justify-between gap-3 border-b border-cyber-border/80 pb-4">
+            <div>
+              <div class="flex items-center gap-2">
+                <span id="challenge-badge-level" class="px-2 py-0.5 rounded text-[11px] font-mono font-bold bg-cyber-panel text-cyber-accent border border-cyber-border">Nivel 1</span>
+                <span id="challenge-badge-diff" class="px-2 py-0.5 rounded text-[11px] font-mono font-bold bg-emerald-950 text-emerald-300 border border-emerald-500/40">Fácil</span>
+              </div>
+              <h2 id="challenge-title" class="text-lg font-mono font-bold text-white mt-2">Cargando reto...</h2>
+            </div>
+            <div class="text-right">
+              <span id="challenge-points" class="text-base font-mono font-bold text-cyber-glow">+100 pts</span>
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <div class="text-xs font-mono text-slate-400">Descripción del Escenario:</div>
+            <p id="challenge-desc" class="text-xs text-slate-300 leading-relaxed font-sans"></p>
+          </div>
+
+          <div class="space-y-2">
+            <div class="text-xs font-mono text-slate-400">Contexto de la Plantilla Vulnerable:</div>
+            <pre id="challenge-template" class="p-3 rounded bg-cyber-bg border border-cyber-border font-mono text-xs text-cyber-glow overflow-x-auto"></pre>
+          </div>
+
+          <div class="space-y-2">
+            <div class="text-xs font-mono text-slate-400">Objetivo:</div>
+            <div id="challenge-goal" class="p-3 rounded bg-cyber-panel/60 border border-cyber-border text-xs font-mono text-cyber-accent"></div>
+          </div>
+
+          <div class="space-y-3 pt-2">
+            <label for="challenge-input" class="block text-xs font-mono text-slate-300">Tu Payload de Explotación:</label>
+            <div class="flex gap-2">
+              <input
+                id="challenge-input"
+                type="text"
+                class="flex-1 p-3 rounded-lg bg-cyber-bg border border-cyber-border font-mono text-xs text-cyber-accent focus:border-cyber-accent"
+                placeholder="Escribe tu payload aquí..."
+              />
+              <button
+                id="challenge-submit-btn"
+                class="px-5 py-3 rounded-lg bg-cyber-accent hover:bg-emerald-400 text-black font-mono font-bold text-xs transition-all shadow-neon-green/20"
+              >
+                Validar Solución
+              </button>
+            </div>
+          </div>
+
+          <div id="challenge-feedback" class="hidden p-4 rounded-lg font-mono text-xs"></div>
+
+          <div class="border-t border-cyber-border/80 pt-4 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono text-slate-400 font-semibold uppercase">Sistema de Pistas Graduales</span>
+              <button id="show-hint-btn" class="text-[11px] font-mono text-cyber-glow hover:underline">
+                💡 Revelar Pista (<span id="hint-count-indicator">1</span>)
+              </button>
+            </div>
+            <div id="hints-container" class="space-y-2"></div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</Layout>
+
+<script>
+  import { CTF_CHALLENGES } from '../../utils/challenges.js';
+  import { getCTFProgress, saveCTFCompleted, resetCTFProgress, saveLog } from '../../utils/storage.js';
+  import confetti from 'canvas-confetti';
+
+  let currentChallengeIndex = 0;
+  let revealedHintsCount = 0;
+
+  function updateCTFView() {
+    const progress = getCTFProgress();
+    const challenge = CTF_CHALLENGES[currentChallengeIndex];
+
+    const list = document.getElementById('ctf-challenges-list');
+    if (list) {
+      list.innerHTML = CTF_CHALLENGES.map((ch, idx) => {
+        const isCompleted = !!progress[ch.id];
+        const isCurrent = idx === currentChallengeIndex;
+        return `
+          <button
+            class="challenge-card w-full text-left p-3 rounded-lg border transition-all ${
+              isCurrent ? 'bg-cyber-card border-cyber-accent shadow-neon-green/10' :
+              isCompleted ? 'bg-cyber-panel/40 border-emerald-500/40 text-slate-300' :
+              'bg-cyber-panel/20 border-cyber-border hover:bg-cyber-panel text-slate-400'
+            }"
+            data-index="${idx}"
+          >
+            <div class="flex items-center justify-between text-xs font-mono">
+              <span class="font-bold ${isCurrent ? 'text-cyber-accent' : isCompleted ? 'text-emerald-400' : 'text-slate-200'}">
+                Nivel ${ch.level}: ${ch.title}
+              </span>
+              ${isCompleted ? '<span class="text-emerald-400 text-xs">✓ Completado</span>' : `<span class="text-slate-500 text-[10px]">${ch.points} pts</span>`}
+            </div>
+            <div class="text-[11px] font-mono text-slate-500 mt-1 flex items-center justify-between">
+              <span>Contexto: ${ch.context}</span>
+              <span class="${
+                ch.difficulty === 'Fácil' ? 'text-emerald-400' :
+                ch.difficulty === 'Medio' ? 'text-amber-400' :
+                ch.difficulty === 'Difícil' ? 'text-red-400' :
+                'text-purple-400'
+              }">${ch.difficulty}</span>
+            </div>
+          </button>
+        `;
+      }).join('');
+
+      list.querySelectorAll('.challenge-card').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const idx = parseInt(btn.getAttribute('data-index') || '0', 10);
+          currentChallengeIndex = idx;
+          revealedHintsCount = 0;
+          updateCTFView();
+        });
+      });
+    }
+
+    let totalEarned = 0;
+    CTF_CHALLENGES.forEach(c => {
+      if (progress[c.id]) totalEarned += c.points;
+    });
+    const ptsElem = document.getElementById('ctf-total-points');
+    if (ptsElem) ptsElem.textContent = `${totalEarned} / 1950 pts`;
+
+    const titleElem = document.getElementById('challenge-title');
+    const descElem = document.getElementById('challenge-desc');
+    const tplElem = document.getElementById('challenge-template');
+    const goalElem = document.getElementById('challenge-goal');
+    const pointsElem = document.getElementById('challenge-points');
+    const lvlBadge = document.getElementById('challenge-badge-level');
+    const diffBadge = document.getElementById('challenge-badge-diff');
+    const feedbackBox = document.getElementById('challenge-feedback');
+    const input = document.getElementById('challenge-input');
+    const hintsContainer = document.getElementById('hints-container');
+
+    if (titleElem) titleElem.textContent = challenge.title;
+    if (descElem) descElem.textContent = challenge.description;
+    if (tplElem) tplElem.textContent = challenge.initialTemplate;
+    if (goalElem) goalElem.textContent = challenge.goal;
+    if (pointsElem) pointsElem.textContent = `+${challenge.points} pts`;
+    if (lvlBadge) lvlBadge.textContent = `Nivel ${challenge.level}`;
+    if (diffBadge) {
+      diffBadge.textContent = challenge.difficulty;
+      diffBadge.className = `px-2 py-0.5 rounded text-[11px] font-mono font-bold ${
+        challenge.difficulty === 'Fácil' ? 'bg-emerald-950 text-emerald-300 border border-emerald-500/40' :
+        challenge.difficulty === 'Medio' ? 'bg-amber-950 text-amber-300 border border-amber-500/40' :
+        challenge.difficulty === 'Difícil' ? 'bg-red-950 text-red-300 border border-red-500/40' :
+        'bg-purple-950 text-purple-300 border border-purple-500/40'
+      }`;
+    }
+
+    if (feedbackBox) feedbackBox.className = 'hidden';
+    if (input) input.value = '';
+
+    if (hintsContainer) {
+      hintsContainer.innerHTML = '';
+      for (let i = 0; i < revealedHintsCount; i++) {
+        if (challenge.hints[i]) {
+          const hintCard = document.createElement('div');
+          hintCard.className = 'p-2.5 rounded bg-cyber-panel border border-cyber-border/80 text-xs font-mono text-cyber-glow';
+          hintCard.innerHTML = `<span class="font-bold text-slate-400">Pista ${i + 1}:</span> ${challenge.hints[i]}`;
+          hintsContainer.appendChild(hintCard);
+        }
+      }
+    }
+  }
+
+  function submitSolution() {
+    const input = document.getElementById('challenge-input');
+    const feedback = document.getElementById('challenge-feedback');
+    if (!input || !feedback) return;
+
+    const payload = input.value.trim();
+    if (!payload) return;
+
+    const challenge = CTF_CHALLENGES[currentChallengeIndex];
+    const isCorrect = challenge.validate(payload);
+
+    feedback.classList.remove('hidden');
+
+    if (isCorrect) {
+      saveCTFCompleted(challenge.id);
+      saveLog({
+        module: `CTF Nivel ${challenge.level}`,
+        payload,
+        severity: 'High',
+        result: 'Reto Superado!',
+        cvss: 7.5
+      });
+
+      feedback.className = 'p-4 rounded-lg bg-emerald-950/80 border border-emerald-500 text-emerald-300 font-mono text-xs space-y-1';
+      feedback.innerHTML = `
+        <div class="font-bold text-sm text-emerald-400">🎉 ¡Vulnerabilidad Explotada con Éxito!</div>
+        <div>Has superado el ${challenge.title} sumando <strong>+${challenge.points} puntos</strong>.</div>
+      `;
+
+      try {
+        confetti({
+          particleCount: 80,
+          spread: 60,
+          origin: { y: 0.7 }
+        });
+      } catch (e) {}
+
+      if (window.showToast) {
+        window.showToast(`¡Reto ${challenge.level} completado! +${challenge.points} pts`, 'success');
+      }
+
+      updateCTFView();
+    } else {
+      feedback.className = 'p-4 rounded-lg bg-red-950/80 border border-red-500 text-red-300 font-mono text-xs space-y-1';
+      feedback.innerHTML = `
+        <div class="font-bold text-sm text-red-400">❌ Payload no efectivo</div>
+        <div>El payload no logró romper el contexto o ejecutar la acción requerida. Revisa las pistas si necesitas ayuda.</div>
+      `;
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    updateCTFView();
+
+    const submitBtn = document.getElementById('challenge-submit-btn');
+    if (submitBtn) submitBtn.addEventListener('click', submitSolution);
+
+    const input = document.getElementById('challenge-input');
+    if (input) {
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') submitSolution();
+      });
+    }
+
+    const hintBtn = document.getElementById('show-hint-btn');
+    if (hintBtn) {
+      hintBtn.addEventListener('click', () => {
+        const challenge = CTF_CHALLENGES[currentChallengeIndex];
+        if (revealedHintsCount < challenge.hints.length) {
+          revealedHintsCount++;
+          updateCTFView();
+        }
+      });
+    }
+
+    const resetBtn = document.getElementById('reset-ctf-btn');
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        resetCTFProgress();
+        currentChallengeIndex = 0;
+        revealedHintsCount = 0;
+        updateCTFView();
+        if (window.showToast) {
+          window.showToast('Progreso de CTF restablecido', 'info');
+        }
+      });
+    }
+  });
+</script>
