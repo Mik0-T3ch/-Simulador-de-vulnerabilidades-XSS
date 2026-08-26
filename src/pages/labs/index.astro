@@ -1,0 +1,619 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Laboratorios XSS | Simulador de Vulnerabilidades">
+  <div class="space-y-8">
+
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-cyber-border/80 pb-5">
+      <div>
+        <h1 class="text-2xl sm:text-3xl font-bold font-mono text-white flex items-center gap-3">
+          <span class="p-2 rounded-lg bg-cyber-accent/10 border border-cyber-accent/30 text-cyber-accent">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>
+          </span>
+          Laboratorios Interactivos de XSS
+        </h1>
+        <p class="text-xs sm:text-sm text-slate-400 mt-1 font-mono">
+          Experimenta con los tres tipos fundamentales de XSS y aprende a identificar debilidades en los filtros de seguridad.
+        </p>
+      </div>
+
+      <div class="flex items-center gap-2 self-start sm:self-auto bg-cyber-panel p-1 rounded-lg border border-cyber-border">
+        <button id="tab-btn-reflected" class="lab-tab-btn active px-3 py-1.5 rounded-md text-xs font-mono font-medium transition-all bg-cyber-accent text-black font-bold">1. Reflected</button>
+        <button id="tab-btn-stored" class="lab-tab-btn px-3 py-1.5 rounded-md text-xs font-mono font-medium transition-all text-slate-300 hover:text-white">2. Stored</button>
+        <button id="tab-btn-dom" class="lab-tab-btn px-3 py-1.5 rounded-md text-xs font-mono font-medium transition-all text-slate-300 hover:text-white">3. DOM-Based</button>
+      </div>
+    </div>
+
+    <div id="tab-content-reflected" class="lab-tab-content space-y-6">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-2 space-y-4">
+          
+          <div class="rounded-xl bg-cyber-card border border-cyber-border p-5 space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-3">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-cyber-accent"></span>
+                <span class="text-xs font-mono font-bold text-white uppercase">Simulador de Buscador Web (Reflected)</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-mono text-slate-400">Nivel de Seguridad:</span>
+                <select id="reflected-security-level" class="bg-cyber-bg border border-cyber-border text-xs font-mono text-cyber-glow rounded px-2.5 py-1 focus:outline-none focus:border-cyber-accent">
+                  <option value="low">Bajo (Sin Filtro / Vulnerable)</option>
+                  <option value="medium">Medio (Filtro débil de &lt;script&gt;)</option>
+                  <option value="high">Alto (Sanitizado / Seguro)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="flex items-center bg-cyber-bg border border-cyber-border rounded-lg px-3 py-2 text-xs font-mono text-slate-400 gap-2">
+              <span class="text-cyber-glow font-bold">GET</span>
+              <span class="text-slate-500">http://vulnerable-shop.local/search?q=</span>
+              <span id="reflected-url-preview" class="text-cyber-accent truncate flex-1 font-bold">laptop</span>
+            </div>
+
+            <div>
+              <label for="reflected-input" class="block text-xs font-mono text-slate-300 mb-1.5">Término de búsqueda / Payload:</label>
+              <div class="flex gap-2">
+                <input
+                  id="reflected-input"
+                  type="text"
+                  class="flex-1 p-2.5 rounded-lg bg-cyber-bg border border-cyber-border focus:border-cyber-accent text-cyber-accent font-mono text-xs placeholder-slate-600"
+                  placeholder="<script>alert('XSS Reflected')</script>"
+                  value="<script>alert('Reflected XSS')</script>"
+                />
+                <button
+                  id="reflected-submit-btn"
+                  class="px-4 py-2.5 rounded-lg bg-cyber-accent hover:bg-emerald-400 text-black font-mono font-bold text-xs transition-all shadow-neon-green/20"
+                >
+                  Enviar Query
+                </button>
+              </div>
+            </div>
+
+            <div class="flex flex-wrap gap-2 pt-1">
+              <span class="text-[11px] font-mono text-slate-500 self-center">Presets rápidos:</span>
+              <button class="reflected-preset px-2 py-0.5 rounded bg-cyber-panel text-slate-300 text-[11px] font-mono border border-cyber-border/60 hover:text-white" data-payload="<script>alert('Reflected 1')</script>">&lt;script&gt;</button>
+              <button class="reflected-preset px-2 py-0.5 rounded bg-cyber-panel text-slate-300 text-[11px] font-mono border border-cyber-border/60 hover:text-white" data-payload="<img src=x onerror=alert('Reflected Bypass')>">Img OnError</button>
+              <button class="reflected-preset px-2 py-0.5 rounded bg-cyber-panel text-slate-300 text-[11px] font-mono border border-cyber-border/60 hover:text-white" data-payload="<svg onload=alert(document.domain)>">SVG Onload</button>
+            </div>
+          </div>
+
+          <div class="rounded-xl bg-cyber-card border border-cyber-border p-5 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono font-bold text-white uppercase">Respuesta del Servidor Renderizada</span>
+              <span id="reflected-status-badge" class="text-[10px] font-mono px-2 py-0.5 rounded bg-cyber-panel text-slate-300 border border-cyber-border">Listo</span>
+            </div>
+
+            <div class="p-4 rounded-lg bg-slate-950 border border-cyber-border/80 min-h-[140px] text-xs font-mono relative" id="reflected-output-container">
+              <div class="text-slate-500 mb-2 border-b border-slate-800 pb-1">Resultados para:</div>
+              <div id="reflected-render-box" class="text-slate-200">
+                <span class="text-slate-500 italic">No se ha realizado ninguna búsqueda aún.</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="space-y-4">
+          <div class="rounded-xl bg-cyber-card border border-cyber-border p-5 space-y-3">
+            <h3 class="text-xs font-mono font-bold text-cyber-glow uppercase">Mecanismo & Explicación</h3>
+            <p class="text-xs text-slate-300 leading-relaxed font-sans">
+              En el XSS reflejado, la carga maliciosa viaja en los parámetros de la solicitud HTTP (como <code>?q=...</code>) y el servidor la incluye directamente en la respuesta HTML sin sanitización.
+            </p>
+            <div class="p-3 rounded bg-cyber-bg border border-cyber-border/60 font-mono text-[11px] space-y-1">
+              <div class="text-cyber-accent font-bold">Vectores Comunes:</div>
+              <div class="text-slate-400">• Parámetros de búsqueda en URL</div>
+              <div class="text-slate-400">• Mensajes de error reflejados</div>
+              <div class="text-slate-400">• Formularios con valores previos</div>
+            </div>
+          </div>
+
+          <div class="rounded-xl bg-cyber-card border border-cyber-border p-5 space-y-3">
+            <div class="flex items-center justify-between">
+              <h3 class="text-xs font-mono font-bold text-white uppercase">Código del Servidor</h3>
+              <span class="text-[10px] font-mono text-slate-400">Python / Django</span>
+            </div>
+            <pre class="p-3 rounded bg-cyber-bg border border-cyber-border/80 text-[11px] font-mono text-slate-300 overflow-x-auto" id="reflected-code-view">
+def search(request):
+    q = request.GET.get('q', '')
+    return HttpResponse(f"Resultados: &#123;q&#125;")</pre>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div id="tab-content-stored" class="lab-tab-content hidden space-y-6">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-2 space-y-4">
+          
+          <div class="rounded-xl bg-cyber-card border border-cyber-border p-5 space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-3">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-cyber-glow"></span>
+                <span class="text-xs font-mono font-bold text-white uppercase">Muro de Comentarios Persistente (Stored)</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-mono text-slate-400">Nivel de Seguridad:</span>
+                <select id="stored-security-level" class="bg-cyber-bg border border-cyber-border text-xs font-mono text-cyber-glow rounded px-2.5 py-1 focus:outline-none focus:border-cyber-accent">
+                  <option value="low">Bajo (Sin Filtro / Vulnerable)</option>
+                  <option value="medium">Medio (Filtro débil de &lt;script&gt;)</option>
+                  <option value="high">Alto (Sanitizado con Escape)</option>
+                </select>
+              </div>
+            </div>
+
+            <form id="stored-comment-form" class="space-y-3">
+              <div>
+                <label for="stored-author" class="block text-xs font-mono text-slate-300 mb-1">Nombre de Usuario:</label>
+                <input
+                  id="stored-author"
+                  type="text"
+                  class="w-full p-2.5 rounded-lg bg-cyber-bg border border-cyber-border text-slate-200 font-mono text-xs focus:border-cyber-accent"
+                  value="Attacker_01"
+                  required
+                />
+              </div>
+
+              <div>
+                <label for="stored-payload" class="block text-xs font-mono text-slate-300 mb-1">Comentario / Payload XSS:</label>
+                <textarea
+                  id="stored-payload"
+                  rows="3"
+                  class="w-full p-2.5 rounded-lg bg-cyber-bg border border-cyber-border text-cyber-accent font-mono text-xs focus:border-cyber-accent placeholder-slate-600 resize-none"
+                  placeholder="<img src=x onerror=alert('Stored XSS ejecutado al cargar la página')>"
+                  required
+                >&lt;img src=x onerror="alert('Stored XSS en base de datos!')"&gt;</textarea>
+              </div>
+
+              <div class="flex items-center justify-between pt-1">
+                <div class="flex gap-2">
+                  <button type="button" class="stored-preset px-2 py-0.5 rounded bg-cyber-panel text-slate-300 text-[11px] font-mono border border-cyber-border/60 hover:text-white" data-payload="<script>alert('Stored XSS!')</script>">&lt;script&gt;</button>
+                  <button type="button" class="stored-preset px-2 py-0.5 rounded bg-cyber-panel text-slate-300 text-[11px] font-mono border border-cyber-border/60 hover:text-white" data-payload="<img src=x onerror=alert('Robo de cookie: '+document.cookie)>">Cookie Alert</button>
+                </div>
+
+                <button
+                  type="submit"
+                  class="px-4 py-2 rounded-lg bg-cyber-accent hover:bg-emerald-400 text-black font-mono font-bold text-xs transition-all shadow-neon-green/20"
+                >
+                  Publicar Comentario
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <div class="rounded-xl bg-cyber-card border border-cyber-border p-5 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono font-bold text-white uppercase">Comentarios Almacenados en DB</span>
+              <div class="flex gap-2">
+                <button id="stored-simulate-victim" class="px-2.5 py-1 rounded bg-cyber-panel hover:bg-cyber-border text-cyber-glow border border-cyber-glow/40 text-[11px] font-mono">
+                  👁️ Simular Visita de Víctima (Admin)
+                </button>
+                <button id="stored-clear-db" class="px-2.5 py-1 rounded bg-cyber-panel hover:bg-red-950 text-slate-400 hover:text-red-400 border border-cyber-border text-[11px] font-mono">
+                  Vaciar DB
+                </button>
+              </div>
+            </div>
+
+            <div id="stored-comments-list" class="space-y-3 max-h-[300px] overflow-y-auto pr-1"></div>
+          </div>
+
+        </div>
+
+        <div class="space-y-4">
+          <div class="rounded-xl bg-cyber-card border border-cyber-border p-5 space-y-3">
+            <h3 class="text-xs font-mono font-bold text-cyber-glow uppercase">Impacto de Stored XSS</h3>
+            <p class="text-xs text-slate-300 leading-relaxed font-sans">
+              El XSS persistente es el más dañino porque la carga dañina se guarda permanentemente en la base de datos y se ejecuta automáticamente cada vez que cualquier usuario (o administrador) abre la página.
+            </p>
+            <div class="p-3 rounded bg-cyber-bg border border-cyber-border/60 font-mono text-[11px] space-y-1">
+              <div class="text-cyber-danger font-bold">Riesgos Críticos:</div>
+              <div class="text-slate-400">• Secuestro masivo de sesiones (Session Hijacking)</div>
+              <div class="text-slate-400">• Gusanos XSS auto-replicantes</div>
+              <div class="text-slate-400">• Desfiguración persistente del sitio web</div>
+            </div>
+          </div>
+
+          <div class="rounded-xl bg-cyber-card border border-cyber-border p-5 space-y-3">
+            <div class="flex items-center justify-between">
+              <h3 class="text-xs font-mono font-bold text-white uppercase">Remediación en Backend</h3>
+              <span class="text-[10px] font-mono text-slate-400">Django Template</span>
+            </div>
+            <pre class="p-3 rounded bg-cyber-bg border border-cyber-border/80 text-[11px] font-mono text-slate-300 overflow-x-auto" id="stored-code-view">
+&#123;&#37; for c in comentarios &#37;&#125;
+  &lt;p&gt;&#123;&#123; c.payload &#125;&#125;&lt;/p&gt;
+&#123;&#37; endfor &#37;&#125;</pre>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div id="tab-content-dom" class="lab-tab-content hidden space-y-6">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-2 space-y-4">
+          
+          <div class="rounded-xl bg-cyber-card border border-cyber-border p-5 space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-3">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-purple-400"></span>
+                <span class="text-xs font-mono font-bold text-white uppercase">Simulador de DOM XSS (Source & Sink)</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-mono text-slate-400">Nivel de Seguridad:</span>
+                <select id="dom-security-level" class="bg-cyber-bg border border-cyber-border text-xs font-mono text-cyber-glow rounded px-2.5 py-1 focus:outline-none focus:border-cyber-accent">
+                  <option value="low">Bajo (innerHTML directo / Vulnerable)</option>
+                  <option value="medium">Medio (Filtro débil sin regex global)</option>
+                  <option value="high">Alto (textContent / Seguro)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="flex items-center bg-cyber-bg border border-cyber-border rounded-lg px-3 py-2 text-xs font-mono text-slate-400 gap-2">
+              <span class="text-purple-400 font-bold">SOURCE:</span>
+              <span class="text-slate-500">window.location.hash = #</span>
+              <input
+                id="dom-hash-input"
+                type="text"
+                class="bg-transparent border-b border-cyber-border text-cyber-accent font-bold focus:outline-none focus:border-cyber-accent flex-1 font-mono text-xs"
+                value="<img src=x onerror=alert('DOM XSS via location.hash!')>"
+              />
+            </div>
+
+            <div class="flex justify-end gap-2">
+              <button
+                id="dom-execute-btn"
+                class="px-4 py-2 rounded-lg bg-cyber-accent hover:bg-emerald-400 text-black font-mono font-bold text-xs transition-all shadow-neon-green/20"
+              >
+                Actualizar Hash & Disparar Sink
+              </button>
+            </div>
+          </div>
+
+          <div class="rounded-xl bg-cyber-card border border-cyber-border p-5 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono font-bold text-white uppercase">DOM Sink Target Element (#content-sink)</span>
+              <span id="dom-sink-badge" class="text-[10px] font-mono px-2 py-0.5 rounded bg-cyber-panel text-slate-300 border border-cyber-border">innerHTML Activo</span>
+            </div>
+
+            <div class="p-4 rounded-lg bg-slate-950 border border-cyber-border/80 min-h-[120px] text-xs font-mono text-slate-200" id="dom-render-box">
+              <span class="text-slate-500 italic">Haz clic en "Actualizar Hash & Disparar Sink" para evaluar el flujo del DOM.</span>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="space-y-4">
+          <div class="rounded-xl bg-cyber-card border border-cyber-border p-5 space-y-3">
+            <h3 class="text-xs font-mono font-bold text-purple-400 uppercase">Flujo Source a Sink</h3>
+            <p class="text-xs text-slate-300 leading-relaxed font-sans">
+              En el DOM-based XSS, el payload nunca viaja al backend en el cuerpo HTTP; el ataque se ejecuta íntegramente en el navegador cliente cuando un código JavaScript lee de una fuente no confiable (Source) y la envía a una función peligrosa (Sink).
+            </p>
+            <div class="p-3 rounded bg-cyber-bg border border-cyber-border/60 font-mono text-[11px] space-y-1">
+              <div class="text-slate-400"><span class="text-purple-400 font-bold">Sources:</span> location.hash, location.search, document.referrer</div>
+              <div class="text-slate-400"><span class="text-cyber-danger font-bold">Sinks:</span> element.innerHTML, document.write(), eval()</div>
+            </div>
+          </div>
+
+          <div class="rounded-xl bg-cyber-card border border-cyber-border p-5 space-y-3">
+            <div class="flex items-center justify-between">
+              <h3 class="text-xs font-mono font-bold text-white uppercase">Código JavaScript Cliente</h3>
+              <span class="text-[10px] font-mono text-slate-400">app.js</span>
+            </div>
+            <pre class="p-3 rounded bg-cyber-bg border border-cyber-border/80 text-[11px] font-mono text-slate-300 overflow-x-auto" id="dom-code-view">
+const hash = decodeURIComponent(location.hash.slice(1));
+document.getElementById('content').innerHTML = hash;</pre>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</Layout>
+
+<script>
+  import { saveLog } from '../../utils/storage.js';
+  import { analyzePayload } from '../../utils/xssAnalyzer.js';
+
+  let storedComments = [
+    { id: 1, author: 'Admin', content: 'Bienvenidos al foro de discusión corporativo.', date: 'Hoy 09:00' },
+    { id: 2, author: 'Soporte', content: 'Por favor recuerden no compartir contraseñas.', date: 'Hoy 09:30' }
+  ];
+
+  function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  function executeInSandbox(element, payload) {
+    element.innerHTML = '';
+    const temp = document.createElement('div');
+    temp.innerHTML = payload;
+    
+    Array.from(temp.childNodes).forEach(node => {
+      element.appendChild(node.cloneNode(true));
+    });
+
+    const scripts = temp.querySelectorAll('script');
+    scripts.forEach(s => {
+      const newScript = document.createElement('script');
+      if (s.src) newScript.src = s.src;
+      else newScript.textContent = s.innerText || s.textContent;
+      element.appendChild(newScript);
+    });
+  }
+
+  function initTabs() {
+    const tabs = [
+      { btn: document.getElementById('tab-btn-reflected'), content: document.getElementById('tab-content-reflected') },
+      { btn: document.getElementById('tab-btn-stored'), content: document.getElementById('tab-content-stored') },
+      { btn: document.getElementById('tab-btn-dom'), content: document.getElementById('tab-content-dom') }
+    ];
+
+    tabs.forEach(({ btn, content }) => {
+      if (!btn || !content) return;
+      btn.addEventListener('click', () => {
+        tabs.forEach(t => {
+          if (t.btn) {
+            t.btn.classList.remove('bg-cyber-accent', 'text-black', 'font-bold');
+            t.btn.classList.add('text-slate-300');
+          }
+          if (t.content) t.content.classList.add('hidden');
+        });
+
+        btn.classList.add('bg-cyber-accent', 'text-black', 'font-bold');
+        btn.classList.remove('text-slate-300');
+        content.classList.remove('hidden');
+      });
+    });
+  }
+
+  function initReflected() {
+    const input = document.getElementById('reflected-input');
+    const urlPreview = document.getElementById('reflected-url-preview');
+    const submitBtn = document.getElementById('reflected-submit-btn');
+    const renderBox = document.getElementById('reflected-render-box');
+    const secLevel = document.getElementById('reflected-security-level');
+    const statusBadge = document.getElementById('reflected-status-badge');
+    const codeView = document.getElementById('reflected-code-view');
+
+    if (input && urlPreview) {
+      input.addEventListener('input', () => {
+        urlPreview.textContent = input.value || 'laptop';
+      });
+    }
+
+    if (secLevel && codeView) {
+      secLevel.addEventListener('change', () => {
+        const level = secLevel.value;
+        if (level === 'low') {
+          codeView.textContent = `def search(request):\n    q = request.GET.get('q', '')\n    return HttpResponse(f"Resultados: {q}")`;
+        } else if (level === 'medium') {
+          codeView.textContent = `def search(request):\n    q = request.GET.get('q', '')\n    sanitized = q.replace('<script>', '')\n    return HttpResponse(f"Resultados: {sanitized}")`;
+        } else {
+          codeView.textContent = `from django.utils.html import escape\n\ndef search(request):\n    q = request.GET.get('q', '')\n    safe_q = escape(q)\n    return HttpResponse(f"Resultados: {safe_q}")`;
+        }
+      });
+    }
+
+    document.querySelectorAll('.reflected-preset').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const p = btn.getAttribute('data-payload');
+        if (input && p) {
+          input.value = p;
+          if (urlPreview) urlPreview.textContent = p;
+        }
+      });
+    });
+
+    if (submitBtn && input && renderBox && secLevel && statusBadge) {
+      submitBtn.addEventListener('click', () => {
+        const raw = input.value;
+        const level = secLevel.value;
+        let finalOutput = raw;
+
+        if (level === 'low') {
+          statusBadge.textContent = 'Renderizado Inseguro (Bajo)';
+          statusBadge.className = 'text-[10px] font-mono px-2 py-0.5 rounded bg-red-950 text-red-300 border border-red-500';
+          executeInSandbox(renderBox, raw);
+        } else if (level === 'medium') {
+          const filtered = raw.replace(/<script>/gi, '').replace(/<\/script>/gi, '');
+          statusBadge.textContent = 'Filtro <script> Aplicado (Medio)';
+          statusBadge.className = 'text-[10px] font-mono px-2 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-500';
+          executeInSandbox(renderBox, filtered);
+          finalOutput = filtered;
+        } else {
+          statusBadge.textContent = 'Sanitizado Seguro (Alto)';
+          statusBadge.className = 'text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-500';
+          renderBox.textContent = raw;
+          finalOutput = escapeHtml(raw);
+        }
+
+        const analysis = analyzePayload(raw);
+        saveLog({
+          module: 'Reflected Lab',
+          payload: raw,
+          severity: level === 'high' ? 'Safe' : analysis.severity,
+          result: level === 'high' ? 'Bloqueado por Escape' : 'Ejecutado con éxito',
+          cvss: level === 'high' ? 0.0 : analysis.cvssScore
+        });
+
+        if (window.showToast) {
+          window.showToast(`Petición reflejada procesada (Nivel ${level})`, 'info');
+        }
+      });
+    }
+  }
+
+  function renderStoredComments() {
+    const list = document.getElementById('stored-comments-list');
+    const secLevel = document.getElementById('stored-security-level');
+    if (!list) return;
+
+    list.innerHTML = '';
+    const level = secLevel ? secLevel.value : 'low';
+
+    storedComments.forEach(c => {
+      const card = document.createElement('div');
+      card.className = 'p-3 rounded-lg bg-cyber-bg border border-cyber-border space-y-1.5';
+      
+      const header = document.createElement('div');
+      header.className = 'flex items-center justify-between text-[11px] font-mono text-slate-400';
+      header.innerHTML = `<span class="text-cyber-glow font-bold">${escapeHtml(c.author)}</span><span>${c.date}</span>`;
+      
+      const body = document.createElement('div');
+      body.className = 'text-xs font-mono text-slate-200';
+
+      if (level === 'low') {
+        executeInSandbox(body, c.content);
+      } else if (level === 'medium') {
+        const filtered = c.content.replace(/<script>/gi, '').replace(/<\/script>/gi, '');
+        executeInSandbox(body, filtered);
+      } else {
+        body.textContent = c.content;
+      }
+
+      card.appendChild(header);
+      card.appendChild(body);
+      list.appendChild(card);
+    });
+  }
+
+  function initStored() {
+    const form = document.getElementById('stored-comment-form');
+    const authorInput = document.getElementById('stored-author');
+    const payloadInput = document.getElementById('stored-payload');
+    const secLevel = document.getElementById('stored-security-level');
+    const clearBtn = document.getElementById('stored-clear-db');
+    const victimBtn = document.getElementById('stored-simulate-victim');
+
+    renderStoredComments();
+
+    if (secLevel) {
+      secLevel.addEventListener('change', renderStoredComments);
+    }
+
+    document.querySelectorAll('.stored-preset').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const p = btn.getAttribute('data-payload');
+        if (payloadInput && p) payloadInput.value = p;
+      });
+    });
+
+    if (form && authorInput && payloadInput) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const author = authorInput.value.trim() || 'Anónimo';
+        const content = payloadInput.value.trim();
+        if (!content) return;
+
+        storedComments.push({
+          id: Date.now(),
+          author,
+          content,
+          date: 'Ahora mismo'
+        });
+
+        const analysis = analyzePayload(content);
+        saveLog({
+          module: 'Stored Lab',
+          payload: content,
+          severity: analysis.severity,
+          result: 'Guardado en DB & Renderizado',
+          cvss: analysis.cvssScore
+        });
+
+        renderStoredComments();
+        if (window.showToast) {
+          window.showToast('Comentario guardado en la base de datos simulada', 'success');
+        }
+      });
+    }
+
+    if (clearBtn) {
+      clearBtn.addEventListener('click', () => {
+        storedComments = [];
+        renderStoredComments();
+        if (window.showToast) {
+          window.showToast('Base de datos de comentarios vaciada', 'info');
+        }
+      });
+    }
+
+    if (victimBtn) {
+      victimBtn.addEventListener('click', () => {
+        if (window.showToast) {
+          window.showToast('Simulando sesión del Administrador visitando la página...', 'warning');
+        }
+        setTimeout(() => {
+          renderStoredComments();
+        }, 500);
+      });
+    }
+  }
+
+  function initDom() {
+    const hashInput = document.getElementById('dom-hash-input');
+    const executeBtn = document.getElementById('dom-execute-btn');
+    const renderBox = document.getElementById('dom-render-box');
+    const secLevel = document.getElementById('dom-security-level');
+    const codeView = document.getElementById('dom-code-view');
+    const sinkBadge = document.getElementById('dom-sink-badge');
+
+    if (secLevel && codeView) {
+      secLevel.addEventListener('change', () => {
+        const level = secLevel.value;
+        if (level === 'low') {
+          codeView.textContent = `const hash = decodeURIComponent(location.hash.slice(1));\ndocument.getElementById('content').innerHTML = hash;`;
+          if (sinkBadge) sinkBadge.textContent = 'innerHTML Activo';
+        } else if (level === 'medium') {
+          codeView.textContent = `let hash = decodeURIComponent(location.hash.slice(1));\nhash = hash.replace('<script>', '');\ndocument.getElementById('content').innerHTML = hash;`;
+          if (sinkBadge) sinkBadge.textContent = 'replace() Débil';
+        } else {
+          codeView.textContent = `const hash = decodeURIComponent(location.hash.slice(1));\ndocument.getElementById('content').textContent = hash;`;
+          if (sinkBadge) sinkBadge.textContent = 'textContent Seguro';
+        }
+      });
+    }
+
+    if (executeBtn && hashInput && renderBox && secLevel) {
+      executeBtn.addEventListener('click', () => {
+        const raw = hashInput.value;
+        const level = secLevel.value;
+
+        if (level === 'low') {
+          executeInSandbox(renderBox, raw);
+        } else if (level === 'medium') {
+          const filtered = raw.replace('<script>', '');
+          executeInSandbox(renderBox, filtered);
+        } else {
+          renderBox.textContent = raw;
+        }
+
+        const analysis = analyzePayload(raw);
+        saveLog({
+          module: 'DOM Lab',
+          payload: raw,
+          severity: level === 'high' ? 'Safe' : analysis.severity,
+          result: level === 'high' ? 'Mitigado con textContent' : 'Disparado en DOM Sink',
+          cvss: level === 'high' ? 0.0 : analysis.cvssScore
+        });
+
+        if (window.showToast) {
+          window.showToast(`DOM Sink ejecutado (Nivel ${level})`, 'info');
+        }
+      });
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    initTabs();
+    initReflected();
+    initStored();
+    initDom();
+  });
+</script>
