@@ -1,0 +1,37 @@
+<div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+<script>
+  window.showToast = function(message, type = 'info') {
+    const container = document.getElementById('toast-container');
+    if (!container) return;
+
+    const toast = document.createElement('div');
+    toast.className = `pointer-events-auto px-4 py-3 rounded-lg border font-mono text-xs shadow-lg transition-all duration-300 transform translate-y-2 opacity-0 flex items-center gap-3 backdrop-blur-md ${
+      type === 'success' ? 'bg-emerald-950/90 text-emerald-300 border-emerald-500/50' :
+      type === 'danger' ? 'bg-red-950/90 text-red-300 border-red-500/50' :
+      type === 'warning' ? 'bg-amber-950/90 text-amber-300 border-amber-500/50' :
+      'bg-cyber-panel/90 text-cyber-glow border-cyber-glow/50'
+    }`;
+
+    toast.innerHTML = `
+      <span class="w-2 h-2 rounded-full ${
+        type === 'success' ? 'bg-emerald-400' :
+        type === 'danger' ? 'bg-red-400' :
+        type === 'warning' ? 'bg-amber-400' :
+        'bg-cyber-glow'
+      }"></span>
+      <span>${message}</span>
+    `;
+
+    container.appendChild(toast);
+
+    requestAnimationFrame(() => {
+      toast.classList.remove('translate-y-2', 'opacity-0');
+    });
+
+    setTimeout(() => {
+      toast.classList.add('opacity-0', 'translate-y-2');
+      setTimeout(() => toast.remove(), 300);
+    }, 3500);
+  };
+</script>

@@ -1,0 +1,68 @@
+---
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import Toast from '../components/Toast.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { 
+  title = 'Simulador de Vulnerabilidades XSS & Sistema de Reportes',
+  description = 'Laboratorio avanzado de simulación de ataques y defensas XSS (Reflected, Stored, DOM), evasión de filtros, CSP y generador de reportes de auditoría.'
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-cyber-bg text-slate-200 min-h-screen flex flex-col font-sans selection:bg-cyber-accent selection:text-black antialiased relative overflow-x-hidden">
+    
+    <div class="fixed inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-950/20 via-transparent to-transparent -z-10"></div>
+    <div class="fixed inset-0 pointer-events-none opacity-20 bg-[linear-gradient(to_right,#1f293d_1px,transparent_1px),linear-gradient(to_bottom,#1f293d_1px,transparent_1px)] bg-[size:4rem_4rem] -z-10"></div>
+
+    <Navbar />
+
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <slot />
+    </main>
+
+    <Footer />
+    <Toast />
+  </body>
+</html>
+
+<style is:global>
+  body {
+    font-family: 'Inter', sans-serif;
+  }
+  code, pre, .font-mono {
+    font-family: 'Fira Code', monospace;
+  }
+  
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0a0d14;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #1f2d4d;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #00ff9d;
+  }
+</style>

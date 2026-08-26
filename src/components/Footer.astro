@@ -1,0 +1,21 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="mt-auto border-t border-cyber-border/80 bg-cyber-bg/95 py-8 text-center text-xs font-mono text-slate-500">
+  <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div class="flex items-center gap-2">
+      <span class="w-2 h-2 rounded-full bg-cyber-accent"></span>
+      <span class="text-slate-400">XSS Lab & Report Platform</span>
+      <span class="text-slate-600">|</span>
+      <span>Finalidad Educativa y Pentesting Ético</span>
+    </div>
+    <div class="flex items-center gap-4 text-slate-400">
+      <span>OWASP A03:2021 Injection</span>
+      <span>•</span>
+      <span>CWE-79 XSS</span>
+      <span>•</span>
+      <span>{currentYear}</span>
+    </div>
+  </div>
+</footer>

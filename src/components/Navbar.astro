@@ -1,0 +1,107 @@
+---
+const currentPath = Astro.url.pathname;
+
+const navItems = [
+  { name: 'Dashboard', href: '/' },
+  { name: 'Laboratorios', href: '/labs' },
+  { name: 'Sandbox', href: '/sandbox' },
+  { name: 'Analizador', href: '/analizador' },
+  { name: 'Ofuscador', href: '/ofuscador' },
+  { name: 'CSP Lab', href: '/csp' },
+  { name: 'Retos CTF', href: '/retos' },
+  { name: 'Reportes', href: '/reportes' },
+  { name: 'CheatSheet', href: '/cheatsheet' }
+];
+
+function isActive(href: string) {
+  if (href === '/') return currentPath === '/' || currentPath === '';
+  return currentPath.startsWith(href);
+}
+---
+
+<header class="sticky top-0 z-50 bg-cyber-bg/90 backdrop-blur-md border-b border-cyber-border/80">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      
+      <a href="/" class="flex items-center gap-3 group">
+        <div class="w-9 h-9 rounded-lg bg-cyber-card border border-cyber-accent/50 flex items-center justify-center text-cyber-accent shadow-neon-green/20 group-hover:scale-105 transition-transform">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+          </svg>
+        </div>
+        <div>
+          <span class="font-mono font-bold text-lg tracking-wider text-slate-100 group-hover:text-cyber-accent transition-colors">
+            XSS<span class="text-cyber-accent">.SIM</span>
+          </span>
+          <span class="hidden sm:inline-block ml-2 text-[10px] font-mono uppercase px-1.5 py-0.5 rounded bg-cyber-panel text-cyber-glow border border-cyber-glow/30">
+            v2.0 Pro
+          </span>
+        </div>
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-1">
+        {navItems.map((item) => {
+          const active = isActive(item.href);
+          return (
+            <a
+              href={item.href}
+              class={`px-3 py-1.5 rounded-lg text-xs font-mono font-medium transition-all ${
+                active
+                  ? 'bg-cyber-accent/15 text-cyber-accent border border-cyber-accent/40 shadow-neon-green/10'
+                  : 'text-slate-300 hover:text-white hover:bg-cyber-card/60'
+              }`}
+            >
+              {item.name}
+            </a>
+          );
+        })}
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <div class="hidden sm:flex items-center gap-2 px-3 py-1 rounded-full bg-cyber-panel/60 border border-cyber-border text-xs font-mono text-slate-300">
+          <span class="w-2 h-2 rounded-full bg-cyber-accent animate-pulse"></span>
+          <span>Ambiente Seguro</span>
+        </div>
+
+        <button
+          id="mobile-menu-btn"
+          aria-label="Abrir menú de navegación"
+          class="lg:hidden p-2 rounded-lg bg-cyber-card border border-cyber-border text-slate-300 hover:text-cyber-accent focus:outline-none"
+        >
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="mobile-menu" class="hidden lg:hidden border-b border-cyber-border bg-cyber-card/95 px-4 pt-2 pb-4 space-y-1">
+    {navItems.map((item) => {
+      const active = isActive(item.href);
+      return (
+        <a
+          href={item.href}
+          class={`block px-3 py-2 rounded-md text-sm font-mono font-medium ${
+            active
+              ? 'bg-cyber-accent/20 text-cyber-accent font-bold'
+              : 'text-slate-300 hover:bg-cyber-panel hover:text-white'
+          }`}
+        >
+          {item.name}
+        </a>
+      );
+    })}
+  </div>
+</header>
+
+<script>
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  if (btn && menu) {
+    btn.addEventListener('click', () => {
+      menu.classList.toggle('hidden');
+    });
+  }
+</script>
