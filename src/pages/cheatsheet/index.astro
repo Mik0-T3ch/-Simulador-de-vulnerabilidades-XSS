@@ -1,0 +1,127 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { CHEATSHEET_CATEGORIES } from '../../utils/cheatsheetData.js';
+---
+
+<Layout title="CheatSheet de Payloads XSS | Simulador de Vulnerabilidades">
+  <div class="space-y-8">
+    
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-cyber-border/80 pb-5">
+      <div>
+        <h1 class="text-2xl sm:text-3xl font-bold font-mono text-white flex items-center gap-3">
+          <span class="p-2 rounded-lg bg-cyber-accent/10 border border-cyber-accent/30 text-cyber-accent">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+          </span>
+          Biblioteca de Vectores & CheatSheet XSS
+        </h1>
+        <p class="text-xs sm:text-sm text-slate-400 mt-1 font-mono">
+          Repositorio clasificado de cargas útiles para auditorías de seguridad, pentesting ético y aprendizaje de evasión.
+        </p>
+      </div>
+
+      <div class="w-full sm:w-72">
+        <input
+          id="cheatsheet-search"
+          type="text"
+          class="w-full p-2.5 rounded-lg bg-cyber-card border border-cyber-border font-mono text-xs text-cyber-accent focus:border-cyber-accent placeholder-slate-500"
+          placeholder="Buscar vector o tag..."
+        />
+      </div>
+    </div>
+
+    <div class="space-y-8" id="cheatsheet-categories-container">
+      {CHEATSHEET_CATEGORIES.map((cat) => (
+        <div class="space-y-4 category-section" data-cat={cat.id}>
+          <div class="flex items-center gap-2 border-b border-cyber-border/60 pb-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-cyber-accent"></span>
+            <h2 class="text-base font-mono font-bold text-white uppercase">{cat.name}</h2>
+            <span class="text-xs font-mono text-slate-500">({cat.payloads.length} vectores)</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {cat.payloads.map((p) => (
+              <div class="payload-card p-4 rounded-xl bg-cyber-card border border-cyber-border hover:border-cyber-border/90 flex flex-col justify-between space-y-3 transition-all">
+                <div class="space-y-2">
+                  <div class="flex items-start justify-between gap-2">
+                    <h3 class="text-xs font-mono font-bold text-slate-200 card-title">{p.title}</h3>
+                    <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-cyber-panel text-cyber-glow border border-cyber-glow/30 whitespace-nowrap">
+                      {p.context}
+                    </span>
+                  </div>
+                  <p class="text-xs text-slate-400 leading-relaxed font-sans card-desc">{p.description}</p>
+                </div>
+
+                <div class="space-y-2 pt-1">
+                  <pre class="p-2.5 rounded bg-cyber-bg border border-cyber-border/80 font-mono text-[11px] text-cyber-accent overflow-x-auto whitespace-pre-wrap break-all card-payload">{p.payload}</pre>
+                  
+                  <div class="flex items-center justify-end gap-2 pt-1">
+                    <button
+                      class="copy-payload-btn px-2.5 py-1 rounded bg-cyber-panel text-slate-300 hover:text-white text-[11px] font-mono border border-cyber-border/60"
+                      data-payload={p.payload}
+                    >
+                      Copiar
+                    </button>
+                    <a
+                      href={`/sandbox`}
+                      class="px-2.5 py-1 rounded bg-cyber-accent/15 text-cyber-accent hover:bg-cyber-accent hover:text-black text-[11px] font-mono border border-cyber-accent/30 transition-all font-bold"
+                    >
+                      Probar en Sandbox →
+                    </a>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</Layout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('cheatsheet-search') as HTMLInputElement | null;
+    if (searchInput) {
+      searchInput.addEventListener('input', () => {
+        const query = searchInput.value.toLowerCase().trim();
+        const cards = document.querySelectorAll('.payload-card');
+        const categories = document.querySelectorAll('.category-section');
+
+        cards.forEach((card) => {
+          const title = card.querySelector('.card-title')?.textContent?.toLowerCase() || '';
+          const desc = card.querySelector('.card-desc')?.textContent?.toLowerCase() || '';
+          const payload = card.querySelector('.card-payload')?.textContent?.toLowerCase() || '';
+
+          if (title.includes(query) || desc.includes(query) || payload.includes(query)) {
+            (card as HTMLElement).style.display = 'flex';
+          } else {
+            (card as HTMLElement).style.display = 'none';
+          }
+        });
+
+        categories.forEach((cat) => {
+          const visibleCards = cat.querySelectorAll('.payload-card[style="display: flex;"]');
+          if (query && visibleCards.length === 0 && cat.querySelectorAll('.payload-card').length > 0) {
+            const hasAny = Array.from(cat.querySelectorAll('.payload-card')).some(c => (c as HTMLElement).style.display !== 'none');
+            (cat as HTMLElement).style.display = hasAny ? 'block' : 'none';
+          } else {
+            (cat as HTMLElement).style.display = 'block';
+          }
+        });
+      });
+    }
+
+    document.querySelectorAll('.copy-payload-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const payload = btn.getAttribute('data-payload');
+        if (payload) {
+          navigator.clipboard.writeText(payload);
+          if (window.showToast) {
+            window.showToast('Payload copiado al portapapeles', 'success');
+          }
+        }
+      });
+    });
+  });
+</script>
